@@ -86,9 +86,10 @@ All screenshots show the live console running against synthetic data.
 | | |
 |---|---|
 | Extraction model, held-out (200 notices) | JSON valid 200/200; field exact-match 99.5–100% on all 9 fields |
+| End-to-end batch, 33 unseen notices | precision 1.000, recall 1.000, 0 false positives, 0 errors |
 | Fraud types covered | altered routing digit, wrong bank (valid checksum), misspelled GP name, look-alike sender domain, unverified last-minute bank change, and combined attacks |
 
-These show the pipeline works on synthetic notices built to resemble real ones. They do **not** show performance on real, messy documents (OCR noise, legitimate bank changes, multi-bank funds), which is a different and untested claim. End-to-end results are being re-run on a larger batch and will be added here; earlier small-batch numbers remain in the logs below. See [PIPELINE_DEMO_RESULTS.md](PIPELINE_DEMO_RESULTS.md) and [BUILD_LOG.md](BUILD_LOG.md) for the full record, including the wire-fraud model's four fine-tune iterations and the bugs found along the way.
+These show the pipeline works on synthetic notices built to resemble real ones. They do **not** show performance on real, messy documents (OCR noise, legitimate bank changes, multi-bank funds), which is a different and untested claim. The rules layer's 100% is a synthetic-data ceiling, not a product claim, and a larger end-to-end run is in progress. See [PIPELINE_DEMO_RESULTS.md](PIPELINE_DEMO_RESULTS.md) and [BUILD_LOG.md](BUILD_LOG.md) for the full record, including the wire-fraud model's four fine-tune iterations and the bugs found along the way.
 
 ---
 
