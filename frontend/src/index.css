@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  /* Veridra brand — deep ink + champagne gold, used across the marketing shell */
+  --color-ink-950: #06070b;
+  --color-ink-900: #0a0d14;
+  --color-ink-800: #10141d;
+  --color-ink-700: #171c28;
+  --color-ink-600: #232a3a;
+  --color-ink-line: rgba(233, 228, 214, 0.10);
+
+  --color-gold-300: #f1dca3;
+  --color-gold-400: #e2c077;
+  --color-gold-500: #cba135;
+  --color-gold-600: #a8822b;
+
+  --color-ivory-50: #faf8f3;
+  --color-ivory-100: #f3efe4;
+  --color-ivory-300: #d8d2c2;
+  --color-ivory-500: #9aa0a8;
+
+  --color-emerald-500: #2fbf82;
+  --color-amber-500: #d99a2b;
+  --color-crimson-500: #e0555c;
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-ink-900);
+  color: var(--color-ivory-100);
+}
+
+::selection {
+  background: var(--color-gold-500);
+  color: var(--color-ink-950);
+}
+
+/* thin gold-tinted scrollbar for the dark marketing shell */
+.veridra-dark ::-webkit-scrollbar { width: 10px; }
+.veridra-dark ::-webkit-scrollbar-track { background: var(--color-ink-900); }
+.veridra-dark ::-webkit-scrollbar-thumb { background: var(--color-ink-600); border-radius: 8px; }
+
+.text-balance { text-wrap: balance; }
+
+.bg-noise {
+  background-image: radial-gradient(circle at 1px 1px, rgba(233,228,214,0.06) 1px, transparent 0);
+  background-size: 26px 26px;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(100deg, #f1dca3 0%, #cba135 45%, #f1dca3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card-glow {
+  box-shadow: 0 0 0 1px var(--color-ink-line), 0 30px 80px -30px rgba(203, 161, 53, 0.15);
+}

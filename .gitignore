@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+capital-call-env/
+
+# Local model weights / adapters (large; re-fuse from adapters if needed)
+training/*/*.safetensors
+training/**/adapter_config.json
+
+# Scratch logs from training / eval / smoke tests
+training/*.log
+agents/*.log
+verification/*.log
+approvals/*.log
+demo_output.log
+
+# Synthetic data outputs are large (~112MB); regenerate with `python -m synthetic_data.run_pipeline`
+synthetic_data/output/*.db
+synthetic_data/output/*.csv
+synthetic_data/output/*.jsonl
+
+# Module 2 approvals audit log (runtime, per-machine)
+approvals/data/*.jsonl
+
+# Module 5 K-1 routing tracking log (runtime, per-machine)
+k1_routing/data/*.jsonl
+k1_routing/*.log
+
+# macOS / editor
+.DS_Store
+.claude/settings.local.json
+
+# Frontend / video build output
+frontend/dist/
+brag-output/composition/.snap/

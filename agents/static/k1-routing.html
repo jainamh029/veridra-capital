@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Capital Call — K-1 Routing (synthetic demo)</title>
+<style>
+  :root {
+    --bg: #f4f5f7; --card: #fff; --ink: #1c2330; --muted: #5b6472;
+    --line: #dfe3e8; --pass: #1f8f46; --review: #b9770e; --block: #c0392b;
+    --btn: #2d5be3;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { background: var(--card); border-bottom: 1px solid var(--line); padding: 16px 24px; }
+  header h1 { margin: 0; font-size: 18px; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+  header .hrow { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .hrow .right { display: flex; align-items: center; gap: 10px; flex: none; flex-wrap: wrap; }
+  .navlink { font-size: 13px; text-decoration: none; color: var(--btn);
+             border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; white-space: nowrap; }
+  .navlink:hover { background: #eef2fb; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .bar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+  .bar button { background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+                padding: 7px 14px; cursor: pointer; font-size: 14px; }
+  .count { color: var(--muted); font-size: 14px; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+          padding: 18px 20px; margin-bottom: 18px; }
+  .card.needs { border-left: 4px solid var(--block); }
+  .card.routed { border-left: 4px solid var(--pass); }
+  .card.awaiting { border-left: 4px solid var(--review); background: #fbf7ee; }
+  .card h2 { margin: 0 0 2px; font-size: 15px; font-family: ui-monospace, Menlo, monospace; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+  .badges { display: flex; gap: 8px; margin: 8px 0 12px; flex-wrap: wrap; }
+  .badge { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+           border: 1px solid currentColor; text-transform: uppercase; letter-spacing: .03em; }
+  .b-ROUTED { color: var(--pass); }
+  .b-NEEDS_REVIEW { color: var(--block); }
+  .b-AWAITING_EXTRACTION { color: var(--review); }
+  .b-mut { color: var(--muted); }
+
+  .await-box { background: #fbf1de; border: 1px solid #e7d4a8; border-radius: 8px; padding: 12px 14px; }
+  .await-box h3 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; color: var(--review);
+                  letter-spacing: .04em; }
+
+  table.fields { border-collapse: collapse; width: 100%; font-size: 13px; margin-bottom: 12px; }
+  table.fields td { padding: 4px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.fields td.k { color: var(--muted); width: 210px; white-space: nowrap; }
+
+  .routed-box { background: #eef7f0; border: 1px solid #cfe6d6; border-radius: 8px; padding: 12px 14px; }
+  .routed-box h3 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; color: var(--pass);
+                   letter-spacing: .04em; }
+  .review-box { background: #fbeae8; border: 1px solid #eecac6; border-radius: 8px; padding: 12px 14px; }
+  .review-box h3 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; color: var(--block);
+                   letter-spacing: .04em; }
+  .review-box .reason { font-weight: 700; }
+  .fuzzy { color: var(--review); font-size: 12px; }
+  .empty { color: var(--muted); text-align: center; padding: 48px 0; }
+  .note { color: var(--muted); font-size: 12px; margin-top: 24px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <div>
+      <h1>K-1 Routing</h1>
+      <p>Reads a Schedule K-1 (an annual tax document — <strong>no wire, no fraud check</strong>)
+         and identifies which fund and which LP it belongs to. Matching is deterministic; if it
+         can't identify the recipient confidently it goes to <strong>NEEDS_REVIEW</strong> rather
+         than guessing. All documents are synthetic.</p>
+    </div>
+    <div class="right">
+      <a class="navlink" href="/ui/approvals">Payment Approvals →</a>
+      <a class="navlink" href="/ui/cash-planning">Cash Planning →</a>
+      <a class="navlink" href="/ui/forecasting">Forecasting →</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="bar">
+    <button id="refresh">↻ Refresh</button>
+    <span class="count" id="count">loading…</span>
+  </div>
+  <div id="list"></div>
+  <p class="note">Local demo surface — synthetic data, no login. Backed by
+     <code>GET /k1-routing</code>. Extraction: general-purpose <code>qwen2.5:3b-instruct</code>
+     (not the fraud model). Matching: deterministic <code>rapidfuzz</code>, same approach as the hub.</p>
+</div>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const money = v => typeof v === "number"
+  ? "$" + v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  : esc(v ?? "—");
+
+function extractedRows(ext) {
+  const order = [
+    ["fund_name", "Extracted fund name"], ["lp_name", "Extracted LP name"],
+    ["tax_year", "Tax year"], ["ordinary_business_income", "Ordinary business income"],
+    ["guaranteed_payments", "Guaranteed payments"],
+  ];
+  const rows = order.map(([k, label]) => {
+    const v = ext[k];
+    const disp = (k === "ordinary_business_income" || k === "guaranteed_payments")
+      ? money(v) : esc(v ?? "—");
+    return `<tr><td class="k">${label}</td><td>${disp}</td></tr>`;
+  }).join("");
+  return rows + `<tr><td class="k">extraction source</td><td>${esc(ext.extraction_source)}</td></tr>`;
+}
+
+function matchLine(m, kind) {
+  if (!m) return "";
+  const tag = m.exact ? "exact" : `fuzzy ${esc(m.match_score)}%`;
+  const id = kind === "fund" ? m.fund_id : m.lp_id;
+  const nm = kind === "fund" ? m.fund_name : m.lp_name;
+  return `<tr><td class="k">Matched ${kind}</td><td>${esc(nm)} <span class="b-mut">(${esc(id)})</span>
+    <span class="${m.exact ? "" : "fuzzy"}">— ${tag}</span></td></tr>`;
+}
+
+function card(doc) {
+  const ext = doc.extracted;
+  const routed = doc.status === "ROUTED";
+  const awaiting = doc.status === "AWAITING_EXTRACTION";
+  const mf = doc.matched_fund;
+  const ml = doc.matched_lp;
+  const rt = doc.routed_to;
+
+  // AWAITING_EXTRACTION: the model was unreachable. Show this plainly — NO
+  // extracted fields (none were produced), NO routing. It must not look like a
+  // routed or reviewed document.
+  if (awaiting) {
+    return `
+    <div class="card awaiting">
+      <h2>${esc(doc.doc_id)}</h2>
+      <div class="sub">case: ${esc(doc.case || "—")} · received ${esc(doc.received_at)}
+        · retries so far: ${esc(doc.retry_count)}</div>
+      <div class="badges">
+        <span class="badge b-AWAITING_EXTRACTION">awaiting extraction</span>
+      </div>
+      <div class="await-box">
+        <h3>Not processed yet</h3>
+        <div>The extraction model was unavailable. This document is queued and will be
+          re-attempted (POST <code>/k1-routing/retry-pending</code>) — it has <strong>not</strong>
+          been routed or reviewed, and no lower-quality extraction was substituted.</div>
+        <div class="b-mut" style="margin-top:6px">last error: ${esc(doc.extraction_error || "—")}</div>
+      </div>
+    </div>`;
+  }
+
+  const outcome = routed
+    ? `<div class="routed-box">
+         <h3>Routed</h3>
+         <table class="fields" style="margin:0">
+           ${matchLine(mf, "fund")}
+           ${matchLine(ml, "lp")}
+           <tr><td class="k">Deliver to</td><td>${esc(rt.recipient)}
+             <span class="b-mut">· queue: ${esc(rt.queue)} · ref ${esc(rt.recipient_ref)}</span></td></tr>
+         </table>
+       </div>`
+    : `<div class="review-box">
+         <h3>Needs review — not routed</h3>
+         <div class="reason">${esc((doc.review_reason || "").replace(/_/g, " "))}</div>
+         <div>${esc(doc.review_detail || "")}</div>
+         ${mf ? `<table class="fields" style="margin:8px 0 0">${matchLine(mf, "fund")}</table>` : ""}
+       </div>`;
+
+  return `
+  <div class="card ${routed ? "routed" : "needs"}">
+    <h2>${esc(doc.doc_id)}</h2>
+    <div class="sub">case: ${esc(doc.case || "—")} · received ${esc(doc.received_at)}
+      ${doc.routed_at ? "· decided " + esc(doc.routed_at) : ""}</div>
+    <div class="badges">
+      <span class="badge b-${esc(doc.status)}">${esc(doc.status.replace(/_/g, " "))}</span>
+    </div>
+    <table class="fields">${extractedRows(ext)}</table>
+    ${outcome}
+  </div>`;
+}
+
+async function load() {
+  $("#count").textContent = "loading…";
+  let data;
+  try {
+    const r = await fetch("/k1-routing");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    data = await r.json();
+  } catch (e) {
+    $("#count").textContent = "";
+    $("#list").innerHTML = `<div class="empty">Could not reach the API (${esc(e.message)}).<br>
+      Start it with <code>uvicorn agents.app:app --reload</code> and refresh.</div>`;
+    return;
+  }
+  const sm = data.summary;
+  $("#count").textContent = sm.total
+    ? `${sm.total} documents · ${sm.routed} routed · ${sm.needs_review} need review`
+      + (sm.awaiting_extraction ? ` · ${sm.awaiting_extraction} awaiting extraction` : "")
+    : "";
+  $("#list").innerHTML = data.documents.length
+    ? data.documents.map(card).join("")
+    : `<div class="empty">No K-1 documents tracked yet. POST one to <code>/k1-routing/ingest</code>.</div>`;
+}
+
+$("#refresh").addEventListener("click", load);
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Veridra Capital — Brag Video</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Fraunces Local";
+        src: url("assets/fonts/fraunces-normal-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Fraunces Local";
+        src: url("assets/fonts/fraunces-italic-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+
+      :root {
+        --ink-950: #06070b;
+        --ink-900: #0a0d14;
+        --ink-800: #10141d;
+        --ink-700: #171c28;
+        --ink-line: rgba(233, 228, 214, 0.12);
+        --gold-300: #f1dca3;
+        --gold-400: #e2c077;
+        --gold-500: #cba135;
+        --ivory-100: #f3efe4;
+        --ivory-500: #9aa0a8;
+        --slate-50: #f8fafc;
+        --slate-100: #f1f5f9;
+        --slate-200: #e2e8f0;
+        --slate-400: #94a3b8;
+        --slate-500: #64748b;
+        --slate-600: #475569;
+        --slate-700: #334155;
+        --slate-900: #0f172a;
+        --emerald-600: #059669;
+        --emerald-700: #047857;
+        --emerald-50: #ecfdf5;
+        --emerald-200: #a7f3d0;
+        --amber-600: #d97706;
+        --amber-50: #fffbeb;
+        --amber-200: #fde68a;
+        --rose-600: #e11d48;
+        --rose-700: #be123c;
+        --rose-50: #fff1f2;
+        --rose-200: #fecdd3;
+        --f-display: "Fraunces Local", Georgia, serif;
+        --f-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+        --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--ink-900); }
+      #root { width: 100%; height: 100%; position: relative; font-family: var(--f-sans); }
+      .clip { position: absolute; inset: 0; overflow: hidden; }
+
+      /* ---------- shared scene chrome ---------- */
+      .scene-dark { background: var(--ink-900); }
+      .scene-dark::before {
+        content: ""; position: absolute; inset: 0;
+        background: radial-gradient(ellipse at 50% 20%, rgba(203,161,53,0.10), transparent 60%);
+      }
+      .scene-light { background: var(--slate-50); }
+
+      .module-eyebrow {
+        position: absolute; top: 72px; left: 50%; transform: translateX(-50%);
+        display: flex; align-items: center; gap: 14px;
+        font: 700 22px var(--f-sans); letter-spacing: 0.16em; text-transform: uppercase;
+        color: var(--slate-600);
+      }
+      .module-eyebrow .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--gold-500); }
+      .module-eyebrow .num { color: var(--gold-600, #a8822b); font-family: var(--f-mono); }
+
+      /* ---------- Scene 1 & 9 — mark ---------- */
+      .mark-wrap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+      .mark-rings { position: relative; width: 420px; height: 420px; display: flex; align-items: center; justify-content: center; }
+      .mark-rings svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .mark-badge {
+        position: relative; width: 148px; height: 148px; border-radius: 28px;
+        border: 3px solid var(--gold-500); background: rgba(203,161,53,0.08);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 0 90px rgba(203,161,53,0.35);
+      }
+      .mark-badge span { font: 400 84px var(--f-display); color: var(--gold-400); }
+      .wordmark { font: 400 44px var(--f-display); letter-spacing: 0.16em; color: var(--ivory-100); text-transform: uppercase; }
+      .wordmark b { color: var(--gold-400); font-weight: 400; }
+      .tagline { font: 400 32px var(--f-display); font-style: italic; color: var(--ivory-500); }
+
+      /* ---------- Scene 2 — hero ---------- */
+      .hero-wrap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 56px; padding: 0 160px; text-align: center; }
+      .hero-head { font: 400 84px/1.06 var(--f-display); color: var(--ivory-100); }
+      .hero-head em { font-style: italic; color: var(--gold-400); }
+      .stat-row { display: flex; gap: 24px; }
+      .stat-chip {
+        display: flex; flex-direction: column; align-items: center; gap: 6px;
+        padding: 22px 34px; border-radius: 20px; border: 1px solid var(--ink-line);
+        background: rgba(255,255,255,0.03);
+      }
+      .stat-chip .n { font: 400 40px var(--f-display); color: var(--gold-300); }
+      .stat-chip .l { font: 500 15px var(--f-sans); color: var(--ivory-500); text-transform: uppercase; letter-spacing: 0.05em; }
+
+      /* ---------- console card shell (scenes 3-7) ---------- */
+      .console-stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding-top: 40px; }
+      .console-card {
+        width: 1180px; border-radius: 28px; background: #fff; border: 1px solid var(--slate-200);
+        box-shadow: 0 40px 90px -30px rgba(15,23,42,0.25); padding: 52px 60px;
+      }
+      .card-title { font: 600 34px var(--f-sans); color: var(--slate-900); letter-spacing: -0.01em; }
+      .card-sub { margin-top: 6px; font: 500 20px var(--f-mono); color: var(--slate-600); }
+
+      .badge {
+        display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; border-radius: 999px;
+        font: 700 16px var(--f-sans); letter-spacing: 0.05em; text-transform: uppercase; border: 1.5px solid transparent;
+      }
+      .badge-pass { color: var(--emerald-700); background: var(--emerald-50); border-color: var(--emerald-200); }
+      .badge-block { color: var(--rose-700); background: var(--rose-50); border-color: var(--rose-200); }
+      .badge-pending { color: var(--amber-600); background: var(--amber-50); border-color: var(--amber-200); }
+      .badge-routed { color: var(--emerald-700); background: var(--emerald-50); border-color: var(--emerald-200); }
+
+      /* scene 3 — checks */
+      .notice-snip {
+        margin-top: 30px; padding: 20px 26px; border-radius: 16px; background: var(--slate-100);
+        font: 400 19px/1.6 var(--f-mono); color: var(--slate-600);
+      }
+      .check-list { margin-top: 30px; display: flex; flex-direction: column; gap: 14px; }
+      .check-row {
+        display: flex; align-items: center; gap: 18px; padding: 18px 24px; border-radius: 16px;
+        border: 1px solid var(--slate-200); background: var(--slate-50);
+      }
+      .check-row.fail { background: var(--rose-50); border-color: var(--rose-200); }
+      .check-row .icon { width: 30px; height: 30px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font: 700 18px var(--f-sans); color: #fff; flex: none; }
+      .check-row.pass .icon { background: var(--emerald-700); }
+      .check-row.fail .icon { background: var(--rose-700); }
+      .check-row .txt { font: 500 21px var(--f-sans); color: var(--slate-900); }
+      .check-row .txt small { display: block; margin-top: 3px; font: 400 16px var(--f-mono); color: var(--slate-700); }
+      .decision-line { margin-top: 26px; display: flex; align-items: center; gap: 18px; }
+      .decision-line .reason { font: 500 20px var(--f-sans); color: var(--slate-700); }
+
+      /* scene 4 — approvals */
+      .approval-row-top { display: flex; align-items: flex-start; justify-content: space-between; }
+      .approval-badges { display: flex; gap: 10px; margin-top: 22px; }
+      .btn-row { margin-top: 40px; display: flex; gap: 16px; }
+      .btn { flex: 1; padding: 20px 0; border-radius: 14px; text-align: center; font: 700 20px var(--f-sans); color: #fff; }
+      .btn-approve { background: var(--emerald-600); }
+      .btn-reject { background: var(--rose-600); }
+      .btn-info { background: var(--amber-600); }
+      .cursor-dot {
+        position: absolute; width: 26px; height: 26px; border-radius: 999px;
+        background: var(--slate-900); border: 3px solid #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      }
+
+      /* scene 5 — cash planning */
+      .tier-box { border-radius: 20px; padding: 30px 34px; }
+      .tier-confirmed { background: var(--emerald-50); border: 1.5px solid var(--emerald-200); }
+      .tier-confirmed .lbl { font: 700 15px var(--f-sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--emerald-700); }
+      .tier-confirmed .big { margin-top: 6px; font: 400 52px var(--f-display); color: var(--emerald-700); }
+      .tier-pending { margin-top: 20px; border-radius: 20px; padding: 26px 34px; background: var(--amber-50); border: 1.5px solid var(--amber-200); border-left: 6px dashed var(--amber-600); }
+      .tier-pending .lbl { font: 700 15px var(--f-sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber-600); }
+      .tier-pending .big { margin-top: 6px; font: 700 34px var(--f-sans); color: #92400e; }
+      .tier-pending .sub { margin-top: 4px; font: 400 17px var(--f-sans); color: #a16207; }
+
+      /* scene 6 — forecasting */
+      .tier3 { margin-top: 18px; border-radius: 18px; padding: 22px 30px; border: 1.5px dashed var(--slate-400); background: var(--slate-100); }
+      .tier3 .lbl { font: 700 14px var(--f-sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate-500); }
+      .tier3 .big { margin-top: 6px; font: 600 28px var(--f-sans); color: var(--slate-500); }
+      .mini-chart { margin-top: 16px; display: flex; align-items: flex-end; gap: 8px; height: 60px; }
+      .mini-chart .bar { flex: 1; border-radius: 4px 4px 0 0; background: var(--slate-300, #cbd5e1); }
+      .mini-chart .bar.now { background: var(--gold-500); }
+
+      /* scene 7 — k1 */
+      .field-grid { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px; }
+      .field-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--slate-200); padding-bottom: 10px; }
+      .field-row .k { font: 500 18px var(--f-sans); color: var(--slate-600); }
+      .field-row .v { font: 600 19px var(--f-sans); color: var(--slate-900); }
+      .routed-box { margin-top: 30px; padding: 26px 30px; border-radius: 18px; background: var(--emerald-50); border: 1.5px solid var(--emerald-200); }
+      .routed-box .h { font: 700 15px var(--f-sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--emerald-700); }
+      .routed-box .m { margin-top: 8px; font: 500 20px var(--f-sans); color: #065f46; }
+
+      /* scene 8 — stat proof */
+      .proof-wrap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
+      .proof-num { font: 400 76px var(--f-display); color: var(--gold-300); }
+      .proof-num b { color: var(--ivory-100); font-weight: 400; }
+      .proof-cap { margin-top: 14px; font: 500 20px var(--f-sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ivory-500); }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="veridra-brag"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-fps="30"
+      data-duration="70.25"
+    >
+      <!-- ======================= SCENE 1 — Hook / mark assembly (0 - 4.5) ======================= -->
+      <section id="scene1" class="clip scene-dark" data-start="0" data-duration="4.5" data-track-index="0">
+        <div class="mark-wrap">
+          <div class="mark-rings" id="s1-rings" data-layout-allow-overflow="true">
+            <svg viewBox="0 0 420 420" fill="none">
+              <ellipse id="s1-ring1" cx="210" cy="210" rx="205" ry="80" stroke="#f1dca3" stroke-width="1.5" opacity="0.35" transform="rotate(-18 210 210)"/>
+              <ellipse id="s1-ring2" cx="210" cy="210" rx="180" ry="180" stroke="#cba135" stroke-width="1" opacity="0.22" />
+              <ellipse id="s1-ring3" cx="210" cy="210" rx="205" ry="70" stroke="#e2c077" stroke-width="1.5" opacity="0.3" transform="rotate(35 210 210)"/>
+            </svg>
+            <div class="mark-badge" id="s1-badge"><span>V</span></div>
+          </div>
+          <div class="wordmark" id="s1-word">VERIDRA <b>CAPITAL</b></div>
+        </div>
+      </section>
+
+      <!-- ======================= SCENE 2 — Hero reveal (4.5 - 13.11) ======================= -->
+      <section id="scene2" class="clip scene-dark" data-start="4.5" data-duration="8.61" data-track-index="0">
+        <div class="hero-wrap">
+          <div class="hero-head" id="s2-head">The operating system for<br /><em id="s2-head-em">fund finance.</em></div>
+          <div class="stat-row" id="s2-stats">
+            <div class="stat-chip" id="s2-chip1"><span class="n">1.000</span><span class="l">Fraud F1 score</span></div>
+            <div class="stat-chip" id="s2-chip2"><span class="n">0%</span><span class="l">False positives</span></div>
+            <div class="stat-chip" id="s2-chip3"><span class="n">10</span><span class="l">Funds onboarded</span></div>
+            <div class="stat-chip" id="s2-chip4"><span class="n">32,259</span><span class="l">Notices evaluated</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCENE 3 — Fraud Verification (13.11 - 24.81) ======================= -->
+      <section id="scene3" class="clip scene-light" data-start="13.11" data-duration="11.70" data-track-index="0">
+        <div class="module-eyebrow"><span class="num">01</span><span class="dot"></span>Fraud Verification</div>
+        <div class="console-stage">
+          <div class="console-card" id="s3-card">
+            <div class="card-title">Fieldstone Equity Partners II</div>
+            <div class="card-sub">$113,627.47 — follow-on investment</div>
+            <div class="notice-snip">bank: Redwood Capital Bank&nbsp;&nbsp;·&nbsp;&nbsp;routing: 092614967&nbsp;&nbsp;·&nbsp;&nbsp;acct: 9280796110</div>
+            <div class="check-list">
+              <div class="check-row pass" id="s3-check1"><div class="icon">✓</div><div class="txt">ABA routing checksum<small>valid ABA check digit</small></div></div>
+              <div class="check-row fail" id="s3-check2"><div class="icon">✕</div><div class="txt">Receiving bank vs. fund file<small>'Redwood Capital Bank' does not match 'Meridian Trust Bank'</small></div></div>
+              <div class="check-row pass" id="s3-check3"><div class="icon">✓</div><div class="txt">Sender domain vs. authorized list<small>fieldstoneequity.com — on file</small></div></div>
+            </div>
+            <div class="decision-line" id="s3-decision">
+              <span class="badge badge-block">Block</span>
+              <span class="reason">Receiving bank differs from the fund's onboarded instructions.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCENE 4 — Payment Approvals (24.81 - 34.31) ======================= -->
+      <section id="scene4" class="clip scene-light" data-start="24.81" data-duration="9.50" data-track-index="0">
+        <div class="module-eyebrow"><span class="num">02</span><span class="dot"></span>Payment Approvals</div>
+        <div class="console-stage">
+          <div class="console-card" id="s4-card">
+            <div class="approval-row-top">
+              <div>
+                <div class="card-title">Fieldstone Equity Partners II</div>
+                <div class="card-sub">assigned to Dana Whitfield</div>
+              </div>
+              <span class="badge badge-pending">Pending Approval</span>
+            </div>
+            <div class="approval-badges">
+              <span class="badge badge-block">Block</span>
+              <span class="badge" style="color:#64748b;background:#f1f5f9;border-color:#e2e8f0">Severity: High</span>
+            </div>
+            <div class="btn-row" id="s4-buttons">
+              <div class="btn btn-approve">Approve</div>
+              <div class="btn btn-reject">Reject</div>
+              <div class="btn btn-info">Needs Info</div>
+            </div>
+          </div>
+          <div class="cursor-dot" id="s4-cursor"></div>
+        </div>
+      </section>
+
+      <!-- ======================= SCENE 5 — Cash Planning (34.31 - 41.51) ======================= -->
+      <section id="scene5" class="clip scene-light" data-start="34.31" data-duration="7.20" data-track-index="0">
+        <div class="module-eyebrow"><span class="num">03</span><span class="dot"></span>Cash Planning</div>
+        <div class="console-stage">
+          <div class="console-card">
+            <div class="card-title">Sagebrush Ventures Partners IV</div>
+            <div class="card-sub">confirmed vs. near-term — never merged</div>
+            <div class="tier-box tier-confirmed" id="s5-confirmed">
+              <div class="lbl">Confirmed cash balance</div>
+              <div class="big">$2,840,415.00</div>
+            </div>
+            <div class="tier-pending" id="s5-pending">
+              <div class="lbl">Known upcoming — not in the balance above</div>
+              <div class="big">$3,200,000.00</div>
+              <div class="sub">1 capital call due within 30 days</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCENE 6 — Forecasting (41.51 - 49.41) ======================= -->
+      <section id="scene6" class="clip scene-light" data-start="41.51" data-duration="7.90" data-track-index="0">
+        <div class="module-eyebrow"><span class="num">04</span><span class="dot"></span>Forecasting</div>
+        <div class="console-stage">
+          <div class="console-card">
+            <div class="card-title">Cobblestone Capital Partners III</div>
+            <div class="card-sub">three tiers — never summed</div>
+            <div class="tier-box tier-confirmed" style="padding:22px 30px" id="s6-t1">
+              <div class="lbl">1 · Confirmed cash balance</div>
+              <div class="big" style="font-size:34px">$1,940,200.00</div>
+            </div>
+            <div class="tier-pending" style="padding:20px 30px" id="s6-t2">
+              <div class="lbl">2 · Known pending obligations</div>
+              <div class="big" style="font-size:26px">$508,407.38</div>
+            </div>
+            <div class="tier3" id="s6-t3">
+              <div class="lbl">3 · Projected next call — estimate, not an obligation</div>
+              <div class="big">~ $521,005.90 &nbsp;·&nbsp; window Jan 02 → Jan 19</div>
+              <div class="mini-chart" id="s6-chart">
+                <div class="bar" style="height:38%"></div>
+                <div class="bar" style="height:55%"></div>
+                <div class="bar" style="height:44%"></div>
+                <div class="bar" style="height:70%"></div>
+                <div class="bar now" style="height:60%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCENE 7 — K-1 Routing (49.41 - 58.31) ======================= -->
+      <section id="scene7" class="clip scene-light" data-start="49.41" data-duration="8.90" data-track-index="0">
+        <div class="module-eyebrow"><span class="num">05</span><span class="dot"></span>K-1 Routing</div>
+        <div class="console-stage">
+          <div class="console-card" id="s7-card">
+            <div class="card-title">K1-FUND-02-LP-014-2024</div>
+            <div class="card-sub">case: 2024 tax year · received automatically</div>
+            <div class="field-grid" id="s7-fields">
+              <div class="field-row"><span class="k">Extracted fund</span><span class="v">Sagebrush Ventures Partners IV</span></div>
+              <div class="field-row"><span class="k">Extracted LP</span><span class="v">Walton-Holt University Endowment</span></div>
+              <div class="field-row"><span class="k">Tax year</span><span class="v">2024</span></div>
+              <div class="field-row"><span class="k">Ordinary business income</span><span class="v">$476,643.85</span></div>
+            </div>
+            <div class="routed-box" id="s7-routed">
+              <div class="h">Routed</div>
+              <div class="m">Sagebrush Ventures Partners IV (exact) → Walton-Holt University Endowment (exact)</div>
+              <div class="m">Delivered to Institutional Tax – Nonprofit</div>
+            </div>
+          </div>
+        </div>
+        <span class="badge badge-routed" id="s7-badge" style="position:absolute; top: 258px; left: 50%; transform: translateX(297px);">Routed</span>
+      </section>
+
+      <!-- ======================= SCENE 8 — Proof / stat card (58.31 - 66.01) ======================= -->
+      <section id="scene8" class="clip scene-dark" data-start="58.31" data-duration="7.70" data-track-index="0">
+        <div class="proof-wrap">
+          <div class="proof-num" id="s8-n1"><b>1.000</b>&nbsp;precision</div>
+          <div class="proof-num" id="s8-n2"><b>1.000</b>&nbsp;recall</div>
+          <div class="proof-num" id="s8-n3"><b>0%</b>&nbsp;false positives</div>
+          <div class="proof-cap" id="s8-cap">33-notice batch</div>
+        </div>
+      </section>
+
+      <!-- ======================= SCENE 9 — Outro / mark (66.01 - 70.25) ======================= -->
+      <section id="scene9" class="clip scene-dark" data-start="66.01" data-duration="4.24" data-track-index="0">
+        <div class="mark-wrap">
+          <div class="mark-rings" id="s9-rings" data-layout-allow-overflow="true">
+            <svg viewBox="0 0 420 420" fill="none">
+              <ellipse cx="210" cy="210" rx="205" ry="80" stroke="#f1dca3" stroke-width="1.5" opacity="0.35" transform="rotate(-18 210 210)"/>
+              <ellipse cx="210" cy="210" rx="180" ry="180" stroke="#cba135" stroke-width="1" opacity="0.22" />
+              <ellipse cx="210" cy="210" rx="205" ry="70" stroke="#e2c077" stroke-width="1.5" opacity="0.3" transform="rotate(35 210 210)"/>
+            </svg>
+            <div class="mark-badge" id="s9-badge"><span>V</span></div>
+          </div>
+          <div class="wordmark">VERIDRA <b>CAPITAL</b></div>
+          <div class="tagline" id="s9-tagline">The operating system for fund finance.</div>
+        </div>
+      </section>
+
+      <!-- ======================= AUDIO ======================= -->
+      <audio id="vo" src="assets/voiceover.wav" data-start="0" data-duration="70.25" data-track-index="3" data-volume="1"></audio>
+
+      <audio id="music" src="assets/music/happy-beats-business-moves-vol-12-by-ende-dot-app.mp3"
+        data-start="0" data-duration="70.25" data-track-index="10"
+        data-automation='{"version":1,"lanes":[{"target":"volume","points":[
+          {"t":0,"v":0},{"t":0.6,"v":0.15},{"t":4.5,"v":0.10},{"t":57.0,"v":0.10},
+          {"t":58.31,"v":0.19},{"t":63.0,"v":0.22},{"t":66.01,"v":0.13},{"t":68.5,"v":0.06},{"t":70.25,"v":0}
+        ]}]}'></audio>
+
+      <!-- scene 1 — mark lock chime -->
+      <audio id="sfx-mark1" src="assets/sfx/interface/bong_001.ogg" data-start="3.6" data-duration="1" data-track-index="11" data-volume="0.55"></audio>
+
+      <!-- scene 2 — stat chip ticks -->
+      <audio id="sfx-chip1" src="assets/sfx/interface/click_003.ogg" data-start="5.70" data-duration="0.4" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="sfx-chip2" src="assets/sfx/interface/click_003.ogg" data-start="5.92" data-duration="0.4" data-track-index="13" data-volume="0.6"></audio>
+      <audio id="sfx-chip3" src="assets/sfx/interface/click_003.ogg" data-start="6.14" data-duration="0.4" data-track-index="14" data-volume="0.6"></audio>
+      <audio id="sfx-chip4" src="assets/sfx/interface/click_003.ogg" data-start="6.36" data-duration="0.4" data-track-index="15" data-volume="0.6"></audio>
+
+      <!-- scene 3 — check ticks + BLOCK impact -->
+      <audio id="sfx-check1" src="assets/sfx/interface/click_003.ogg" data-start="13.91" data-duration="0.4" data-track-index="16" data-volume="0.55"></audio>
+      <audio id="sfx-check2" src="assets/sfx/interface/click_003.ogg" data-start="14.26" data-duration="0.4" data-track-index="17" data-volume="0.55"></audio>
+      <audio id="sfx-check3" src="assets/sfx/interface/click_003.ogg" data-start="14.61" data-duration="0.4" data-track-index="18" data-volume="0.55"></audio>
+      <!-- beat-locked: 13.11s (strongCue 13.11, intensity 0.98) -- scene3 entrance itself is the lock; this impact lands on the BLOCK reveal shortly after -->
+      <audio id="sfx-block" src="assets/sfx/impact/impactSoft_medium_001.ogg" data-start="15.21" data-duration="0.5" data-track-index="19" data-volume="0.7"></audio>
+
+      <!-- scene 4 — approve tap -->
+      <audio id="sfx-tap" src="assets/sfx/interface/click_003.ogg" data-start="26.41" data-duration="0.4" data-track-index="20" data-volume="0.6"></audio>
+
+      <!-- scene 7 — routed chime -->
+      <audio id="sfx-routed" src="assets/sfx/interface/bong_001.ogg" data-start="50.71" data-duration="1" data-track-index="21" data-volume="0.5"></audio>
+
+      <!-- scene 8 — stat count ticks -->
+      <audio id="sfx-n1" src="assets/sfx/impact/impactSoft_medium_001.ogg" data-start="58.71" data-duration="0.5" data-track-index="22" data-volume="0.65"></audio>
+      <audio id="sfx-n2" src="assets/sfx/interface/click_003.ogg" data-start="59.60" data-duration="0.4" data-track-index="23" data-volume="0.55"></audio>
+      <audio id="sfx-n3" src="assets/sfx/interface/click_003.ogg" data-start="60.50" data-duration="0.4" data-track-index="24" data-volume="0.55"></audio>
+
+      <!-- scene 9 — closing chime -->
+      <audio id="sfx-mark2" src="assets/sfx/interface/bong_001.ogg" data-start="66.4" data-duration="1" data-track-index="25" data-volume="0.4"></audio>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      /* ===================== Scene 1 (0 - 4.5) — mark assembly ===================== */
+      tl.fromTo("#s1-ring1", { opacity: 0, scale: 0.7, rotate: -30 }, { opacity: 0.35, scale: 1, rotate: -18, duration: 1.1, ease: "power2.out", transformOrigin: "50% 50%" }, 0.1);
+      tl.fromTo("#s1-ring2", { opacity: 0, scale: 0.7 }, { opacity: 0.22, scale: 1, duration: 1.1, ease: "power2.out", transformOrigin: "50% 50%" }, 0.25);
+      tl.fromTo("#s1-ring3", { opacity: 0, scale: 0.7, rotate: 60 }, { opacity: 0.3, scale: 1, rotate: 35, duration: 1.1, ease: "power2.out", transformOrigin: "50% 50%" }, 0.4);
+      tl.fromTo("#s1-badge", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, 0.9);
+      tl.fromTo("#s1-word", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.55);
+      tl.to("#s1-rings", { rotate: 12, duration: 3.0, ease: "none" }, 1.5);
+      tl.to("#s1-badge", { boxShadow: "0 0 130px rgba(203,161,53,0.55)", duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 1 }, 2.0);
+
+      /* ===================== Scene 2 (4.5 - 13.11) — hero reveal ===================== */
+      tl.fromTo("#s2-head", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 4.7);
+      tl.fromTo("#s2-stats", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 5.5);
+      tl.fromTo("#s2-chip1", { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 5.70);
+      tl.fromTo("#s2-chip2", { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 5.92);
+      tl.fromTo("#s2-chip3", { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 6.14);
+      tl.fromTo("#s2-chip4", { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 6.36);
+
+      /* ===================== Scene 3 (13.11 - 24.81) — Fraud Verification ===================== // beat-locked: 13.11s */
+      tl.fromTo("#s3-card", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 13.11);
+      tl.fromTo("#s3-check1", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 13.91);
+      tl.fromTo("#s3-check2", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 14.26);
+      tl.fromTo("#s3-check3", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 14.61);
+      tl.fromTo("#s3-decision", { opacity: 0, y: 12, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 15.21);
+
+      /* ===================== Scene 4 (24.81 - 34.31) — Approvals ===================== */
+      tl.fromTo("#s4-card", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 24.81);
+      tl.fromTo("#s4-buttons", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 25.61);
+      tl.fromTo("#s4-cursor", { opacity: 0, x: 780, y: 610 }, { opacity: 1, x: 745, y: 573, duration: 0.55, ease: "power2.inOut" }, 26.05);
+      tl.to("#s4-cursor", { scale: 0.82, duration: 0.12, yoyo: true, repeat: 1, ease: "power1.inOut" }, 26.41);
+      tl.to("#s4-cursor", { opacity: 0, duration: 0.3 }, 27.2);
+
+      /* ===================== Scene 5 (34.31 - 41.51) — Cash Planning ===================== */
+      tl.fromTo("#s5-confirmed", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 34.51);
+      tl.fromTo("#s5-pending", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 35.2);
+
+      /* ===================== Scene 6 (41.51 - 49.41) — Forecasting ===================== */
+      tl.fromTo("#s6-t1", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 41.71);
+      tl.fromTo("#s6-t2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 42.15);
+      tl.fromTo("#s6-t3", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 42.59);
+      tl.fromTo("#s6-chart .bar", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "power2.out", stagger: 0.08, transformOrigin: "50% 100%" }, 43.1);
+
+      /* ===================== Scene 7 (49.41 - 58.31) — K-1 Routing ===================== */
+      tl.fromTo("#s7-card", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 49.41);
+      tl.fromTo("#s7-fields .field-row", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.14, ease: "power2.out" }, 49.86);
+      tl.fromTo("#s7-routed", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.4)" }, 50.71);
+      tl.fromTo("#s7-badge", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, 50.71);
+
+      /* ===================== Scene 8 (58.31 - 66.01) — proof ===================== */
+      tl.fromTo("#s8-n1", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.3)" }, 58.71);
+      tl.fromTo("#s8-n2", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.3)" }, 59.60);
+      tl.fromTo("#s8-n3", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.3)" }, 60.50);
+      tl.fromTo("#s8-cap", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.out" }, 61.2);
+
+      /* ===================== Scene 9 (66.01 - 70.25) — outro mark ===================== */
+      tl.fromTo("#s9-rings", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out" }, 66.11);
+      tl.fromTo("#s9-badge", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 66.31);
+      tl.fromTo("#s9-tagline", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 67.1);
+
+      window.__timelines["veridra-brag"] = tl;
+    </script>
+  </body>
+</html>

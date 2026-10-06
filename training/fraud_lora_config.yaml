@@ -1,0 +1,32 @@
+# Phase 3b QLoRA fine-tune — wire-fraud model v3.
+# v3 = per-field {char-spaced observed/baseline, same_length, identical YES/NO,
+# first_diff_position} for all four comparison fields. Longer targets (~380 tok),
+# so seq goes to 1408 (covers 100% of examples, max is 1388).
+# Same 8GB-safe recipe: 4-bit QLoRA + grad checkpointing, heavy apps closed.
+
+model: "mlx-community/Qwen2.5-1.5B-Instruct-4bit"
+train: true
+data: "training/fraud_data"
+adapter_path: "training/fraud_adapters"
+
+fine_tune_type: lora
+num_layers: 8
+mask_prompt: true
+
+batch_size: 1
+iters: 400
+max_seq_length: 1440
+grad_checkpoint: true
+learning_rate: 1.0e-5
+optimizer: adam
+
+save_every: 100
+steps_per_report: 10
+steps_per_eval: 50
+val_batches: 25
+seed: 20260905
+
+lora_parameters:
+  rank: 8
+  scale: 20.0
+  dropout: 0.0

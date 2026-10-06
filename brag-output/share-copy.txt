@@ -1,0 +1,2 @@
+Introducing Veridra Capital: the operating system for fund finance — wire-fraud verification, payment approvals, cash planning, forecasting, and K-1 routing, live in one console.
+1.000 precision, 1.000 recall, 0% false positives across a 33-notice batch. Every decision still ends with a human approving it.

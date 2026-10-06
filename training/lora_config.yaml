@@ -1,0 +1,42 @@
+# Phase 3 QLoRA fine-tune config — capital call extraction + fraud flag.
+#
+# This replaces the first attempt (bf16 LoRA on Qwen2.5-1.5B-Instruct, seq 1024,
+# no grad checkpointing), which drove an 8GB MacBook Air into a system-wide
+# memory-pressure kernel panic (watchdog timeout) ~7 min in, before iter 100,
+# saving zero adapter weights.
+#
+# Changes for 8GB safety WITHOUT compromising the model choice:
+#   - 4-bit quantized base (QLoRA): ~1GB weights vs ~3GB bf16. Still Qwen2.5-1.5B.
+#   - grad_checkpoint: true — trades a little compute for a large activation-memory cut.
+#   - max_seq_length: 768 — measured max training example is 732 tokens, so this
+#     truncates nothing (the old 1024 was pure headroom waste).
+#   - save_every: 50 — a crash now costs at most 50 iters, not 100.
+#   - mask_prompt: true — loss only on the assistant JSON, better generalization
+#     for structured extraction than training on the notice text too.
+
+model: "mlx-community/Qwen2.5-1.5B-Instruct-4bit"
+train: true
+data: "training/data"
+adapter_path: "training/adapters"
+
+fine_tune_type: lora
+num_layers: 8
+mask_prompt: true
+
+batch_size: 1
+iters: 300
+max_seq_length: 768
+grad_checkpoint: true
+learning_rate: 1.0e-5
+optimizer: adam
+
+save_every: 50
+steps_per_report: 10
+steps_per_eval: 50
+val_batches: 20
+seed: 20260830
+
+lora_parameters:
+  rank: 8
+  scale: 20.0
+  dropout: 0.0

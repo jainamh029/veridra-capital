@@ -1,0 +1,75 @@
+  [ 1/33] C01 truth=clean/- -> PASS (8.3s/notice)
+  [ 2/33] C02 truth=clean/- -> PASS (7.9s/notice)
+  [ 3/33] C03 truth=clean/- -> PASS (7.9s/notice)
+  [ 4/33] C04 truth=clean/- -> PASS (7.8s/notice)
+  [ 5/33] C05 truth=clean/- -> PASS (7.9s/notice)
+  [ 6/33] C06 truth=clean/- -> PASS (7.9s/notice)
+  [ 7/33] C07 truth=clean/- -> PASS (7.8s/notice)
+  [ 8/33] C08 truth=clean/- -> PASS (7.8s/notice)
+  [ 9/33] C09 truth=clean/- -> PASS (7.8s/notice)
+  [10/33] C10 truth=clean/- -> PASS (7.8s/notice)
+  [11/33] C11 truth=clean/- -> PASS (7.8s/notice)
+  [12/33] C12 truth=clean/- -> PASS (7.8s/notice)
+  [13/33] C13 truth=clean/- -> PASS (7.8s/notice)
+  [14/33] C14 truth=clean/- -> PASS (7.8s/notice)
+  [15/33] C15 truth=clean/- -> PASS (7.8s/notice)
+  [16/33] F01 truth=fraud/altered_routing_digit -> BLOCK (7.8s/notice)
+  [17/33] F02 truth=fraud/altered_routing_digit -> BLOCK (7.8s/notice)
+  [18/33] F03 truth=fraud/altered_routing_digit -> BLOCK (7.8s/notice)
+  [19/33] F04 truth=fraud/wrong_bank_valid_checksum -> BLOCK (7.9s/notice)
+  [20/33] F05 truth=fraud/wrong_bank_valid_checksum -> BLOCK (8.0s/notice)
+  [21/33] F06 truth=fraud/wrong_bank_valid_checksum -> BLOCK (8.1s/notice)
+  [22/33] F07 truth=fraud/misspelled_entity_name -> BLOCK (8.1s/notice)
+  [23/33] F08 truth=fraud/misspelled_entity_name -> BLOCK (8.1s/notice)
+  [24/33] F09 truth=fraud/misspelled_entity_name -> BLOCK (8.1s/notice)
+  [25/33] F10 truth=fraud/spoofed_sender_domain -> BLOCK (8.1s/notice)
+  [26/33] F11 truth=fraud/spoofed_sender_domain -> BLOCK (8.2s/notice)
+  [27/33] F12 truth=fraud/spoofed_sender_domain -> BLOCK (8.2s/notice)
+  [28/33] F13 truth=fraud/last_minute_bank_change -> BLOCK (8.2s/notice)
+  [29/33] F14 truth=fraud/last_minute_bank_change -> BLOCK (8.3s/notice)
+  [30/33] F15 truth=fraud/last_minute_bank_change -> BLOCK (8.3s/notice)
+  [31/33] F16 truth=fraud/combined_domain_entity -> BLOCK (8.4s/notice)
+  [32/33] F17 truth=fraud/combined_domain_entity -> BLOCK (8.4s/notice)
+  [33/33] F18 truth=fraud/combined_domain_entity -> BLOCK (8.4s/notice)
+
+======================================================================
+BATCH: 33 notices (15 clean, 18 fraud), 0 pipeline errors
+
+FRAUD DETECTION (flag = BLOCK or REVIEW):
+  TP=18 FP=0 TN=15 FN=0
+  precision = 1.000
+  recall    = 1.000
+  F1        = 1.000
+  FALSE-POSITIVE RATE ON CLEAN = 0/15 (0.0%)
+
+PER FRAUD TYPE (flagged / total | primary-label match | severity):
+  altered_routing_digit      3/3 flagged | 3/3 primary-label = altered_routing_digit | severity: {'high': 3}
+  wrong_bank_valid_checksum  3/3 flagged | 3/3 primary-label = wrong_bank_valid_checksum | severity: {'high': 3}
+  misspelled_entity_name     3/3 flagged | 3/3 primary-label = misspelled_entity_name | severity: {'medium': 3}
+  spoofed_sender_domain      3/3 flagged | 3/3 primary-label = spoofed_sender_domain | severity: {'high': 3}
+  last_minute_bank_change    3/3 flagged | 3/3 primary-label = last_minute_bank_change | severity: {'high': 3}
+  combined_domain_entity     3/3 flagged | 3/3 name BOTH sub-labels | severity: {'high': 3}
+
+ALERT SPOT-CHECK (alert names ALL checks that explain the fraud, at correct severity):
+  F01 altered_routing_digit    sev=high   failed=['baseline_routing_match', 'routing_checksum']  -> OK
+  F02 altered_routing_digit    sev=high   failed=['baseline_routing_match', 'routing_checksum']  -> OK
+  F03 altered_routing_digit    sev=high   failed=['baseline_routing_match', 'routing_checksum']  -> OK
+  F04 wrong_bank_valid_checksum sev=high   failed=['baseline_bank_match', 'baseline_routing_match']  -> OK
+  F05 wrong_bank_valid_checksum sev=high   failed=['baseline_bank_match', 'baseline_routing_match']  -> OK
+  F06 wrong_bank_valid_checksum sev=high   failed=['baseline_bank_match', 'baseline_routing_match']  -> OK
+  F07 misspelled_entity_name   sev=medium failed=['entity_name_match']  -> OK
+  F08 misspelled_entity_name   sev=medium failed=['entity_name_match']  -> OK
+  F09 misspelled_entity_name   sev=medium failed=['entity_name_match']  -> OK
+  F10 spoofed_sender_domain    sev=high   failed=['sender_domain_match']  -> OK
+  F11 spoofed_sender_domain    sev=high   failed=['sender_domain_match']  -> OK
+  F12 spoofed_sender_domain    sev=high   failed=['sender_domain_match']  -> OK
+  F13 last_minute_bank_change  sev=high   failed=['bank_change_language', 'baseline_bank_match', 'baseline_routing_match']  -> OK
+  F14 last_minute_bank_change  sev=high   failed=['bank_change_language', 'baseline_bank_match', 'baseline_routing_match']  -> OK
+  F15 last_minute_bank_change  sev=high   failed=['bank_change_language', 'baseline_bank_match', 'baseline_routing_match']  -> OK
+  F16 combined_domain_entity   sev=high   failed=['entity_name_match', 'sender_domain_match']  -> OK
+  F17 combined_domain_entity   sev=high   failed=['entity_name_match', 'sender_domain_match']  -> OK
+  F18 combined_domain_entity   sev=high   failed=['entity_name_match', 'sender_domain_match']  -> OK
+
+CLEAN CASES flagged as fraud (false positives):
+  none
+======================================================================

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Capital Call — Cash Planning (synthetic demo)</title>
+<style>
+  :root {
+    --bg: #f4f5f7; --card: #fff; --ink: #1c2330; --muted: #5b6472;
+    --line: #dfe3e8; --pass: #1f8f46; --review: #b9770e; --block: #c0392b;
+    --btn: #2d5be3; --btn-ink: #fff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { background: var(--card); border-bottom: 1px solid var(--line); padding: 16px 24px; }
+  header h1 { margin: 0; font-size: 18px; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+  header .hrow { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .navlink { flex: none; font-size: 13px; text-decoration: none; color: var(--btn);
+             border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; white-space: nowrap; }
+  .navlink:hover { background: #eef2fb; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .bar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+  .bar button { background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+                padding: 7px 14px; cursor: pointer; font-size: 14px; }
+  .bar label { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+  .count { color: var(--muted); font-size: 14px; }
+  .msg { margin-left: auto; font-size: 13px; padding: 6px 10px; border-radius: 6px; }
+  .msg.err { background: #fbeae8; color: var(--block); }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+          padding: 18px 20px; margin-bottom: 18px; }
+  .card h2 { margin: 0 0 2px; font-size: 16px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .badge { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+           border: 1px solid currentColor; text-transform: uppercase; letter-spacing: .03em; }
+  .recon-ok { color: var(--pass); } .recon-bad { color: var(--block); }
+
+  table.fields { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  table.fields td { padding: 4px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.fields td.k { color: var(--muted); width: 220px; white-space: nowrap; }
+  table.fields td.n { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* The two numbers must never look merged: confirmed = solid green box,
+     near-term = separate amber box with a dashed rule between them. */
+  .confirmed { background: #eef7f0; border: 1px solid #cfe6d6; border-radius: 8px;
+               padding: 14px 16px; }
+  .confirmed .lbl { font-size: 12px; font-weight: 700; text-transform: uppercase;
+                    letter-spacing: .04em; color: var(--pass); }
+  .confirmed .big { font-size: 26px; font-weight: 700; color: var(--pass);
+                    font-variant-numeric: tabular-nums; margin: 2px 0 8px; }
+
+  .obligations { background: #fbf6ec; border: 1px solid #ecdcb3; border-left: 4px dashed var(--review);
+                 border-radius: 8px; padding: 14px 16px; margin-top: 14px; }
+  .obligations h3 { margin: 0 0 2px; font-size: 13px; text-transform: uppercase;
+                    letter-spacing: .04em; color: var(--review); }
+  .obligations .cap { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .obligations .total { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .obligations .none { color: var(--muted); font-size: 13.5px; }
+
+  .excluded { color: var(--muted); font-size: 12.5px; margin-top: 12px; }
+  .narrative { margin-top: 12px; padding: 10px 12px; background: #f2f4f8; border-radius: 8px;
+               font-size: 13px; color: #33405a; }
+  .empty { color: var(--muted); text-align: center; padding: 48px 0; }
+  .note { color: var(--muted); font-size: 12px; margin-top: 24px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <div>
+      <h1>Cash Planning</h1>
+      <p>Per fund: the real <strong>confirmed</strong> cash position (historical ledger + only
+         <strong>APPROVED</strong> capital calls), and separately the calls <strong>known to be
+         coming due soon</strong>. These are two different numbers — never added together.
+         All data is synthetic.</p>
+    </div>
+    <div style="display:flex;gap:10px;flex:none;flex-wrap:wrap">
+      <a class="navlink" href="/ui/approvals">Payment Approvals →</a>
+      <a class="navlink" href="/ui/forecasting">Forecasting →</a>
+      <a class="navlink" href="/ui/k1-routing">K-1 Routing →</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="bar">
+    <button id="refresh">↻ Refresh</button>
+    <label><input type="checkbox" id="narr" /> include narrative (calls the model)</label>
+    <span class="count" id="count">loading…</span>
+    <span class="msg" id="msg" hidden></span>
+  </div>
+  <div id="list"></div>
+  <p class="note">Local demo surface — synthetic data, no login. Backed by
+     <code>GET /cash-planning</code>; every number comes from <code>cash_planning/core.py</code>
+     (reconciled). PENDING calls are shown but never counted in the balance.</p>
+</div>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const money = v => typeof v === "number"
+  ? "$" + v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  : esc(v ?? "—");
+
+function flash(text) {
+  const m = $("#msg");
+  m.textContent = text; m.hidden = false;
+  clearTimeout(flash._t); flash._t = setTimeout(() => { m.hidden = true; }, 5000);
+}
+
+function compRows(comp) {
+  const order = [
+    ["historical_ledger_balance", "Historical ledger position"],
+    ["approved_capital_calls_total", "+ Approved capital calls"],
+  ];
+  return order.map(([k, label]) =>
+    `<tr><td class="k">${label}</td><td class="n">${money(comp[k])}</td></tr>`).join("");
+}
+
+function obligationRows(near) {
+  if (!near.items.length)
+    return `<div class="none">No capital calls in PENDING_APPROVAL due within
+            ${esc(near.horizon_days)} days.</div>`;
+  const rows = near.items.map(obl =>
+    `<tr><td class="k">due ${esc(obl.due_date)}</td><td class="n">${money(obl.amount)}</td></tr>`
+  ).join("");
+  return `<table class="fields">${rows}</table>
+    <p class="total">Total known but not yet realized: ${money(near.total_not_yet_realized)}
+      &nbsp;<span style="font-weight:400;color:var(--muted)">(${esc(near.count)} call${
+        near.count === 1 ? "" : "s"}, not in the balance)</span></p>`;
+}
+
+function card(fund) {
+  const comp = fund.confirmed_components;
+  const near = fund.near_term_obligations;
+  const excl = fund.excluded_from_balance;
+  const recon = fund.reconciliation;
+  const nar = fund.narrative;
+
+  const beyond = near.pending_outside_window
+    ? ` &nbsp;·&nbsp; ${esc(near.pending_outside_window)} more pending beyond this window`
+    : "";
+  const reconBadge = recon.ok
+    ? `<span class="badge recon-ok">reconciled ✓</span>`
+    : `<span class="badge recon-bad">RECONCILIATION FAILED (Δ ${money(recon.delta)})</span>`;
+  const narHtml = (nar && nar.narrative)
+    ? `<div class="narrative">${esc(nar.narrative)}</div>`
+    : (nar && !nar.generated)
+      ? `<div class="narrative">narrative unavailable — ${esc(nar.reason || "")}</div>` : "";
+
+  return `
+  <div class="card" data-fund="${esc(fund.fund_id)}">
+    <h2>${esc(fund.fund_name)}</h2>
+    <div class="sub">${esc(fund.fund_id)} · ledger as of ${esc(fund.as_of_ledger)} ·
+      reference date ${esc(fund.reference_date)} &nbsp; ${reconBadge}</div>
+
+    <div class="confirmed">
+      <div class="lbl">Confirmed cash balance</div>
+      <div class="big">${money(fund.confirmed_cash_balance)}</div>
+      <table class="fields">${compRows(comp)}
+        <tr><td class="k">Approved calls counted</td>
+            <td class="n">${esc(comp.approved_capital_calls_count)}</td></tr>
+      </table>
+    </div>
+
+    <div class="obligations">
+      <h3>Known upcoming — NOT included in the balance above</h3>
+      <div class="cap">PENDING_APPROVAL capital calls due within ${esc(near.horizon_days)} days${beyond}</div>
+      ${obligationRows(near)}
+    </div>
+
+    <div class="excluded">Excluded (no cash effect): ${esc(excl.REJECTED)} rejected,
+      ${esc(excl.NEEDS_MORE_INFO)} needs-more-info.</div>
+    ${narHtml}
+  </div>`;
+}
+
+async function load() {
+  $("#count").textContent = "loading…";
+  const url = "/cash-planning" + ($("#narr").checked ? "?narrative=true" : "");
+  let funds;
+  try {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    funds = await r.json();
+  } catch (e) {
+    $("#count").textContent = "";
+    $("#list").innerHTML = `<div class="empty">Could not reach the API (${esc(e.message)}).<br>
+      Start it with <code>uvicorn agents.app:app --reload</code> and refresh.</div>`;
+    return;
+  }
+  const withPending = funds.filter(fund => fund.near_term_obligations.count > 0).length;
+  $("#count").textContent = `${funds.length} funds · ${withPending} with a near-term call`;
+  $("#list").innerHTML = funds.length
+    ? funds.map(card).join("")
+    : `<div class="empty">No funds.</div>`;
+}
+
+$("#refresh").addEventListener("click", load);
+$("#narr").addEventListener("change", load);
+load();
+</script>
+</body>
+</html>

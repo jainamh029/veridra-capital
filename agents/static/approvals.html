@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Capital Call — Payment Approvals (synthetic demo)</title>
+<style>
+  :root {
+    --bg: #f4f5f7; --card: #fff; --ink: #1c2330; --muted: #5b6472;
+    --line: #dfe3e8; --pass: #1f8f46; --review: #b9770e; --block: #c0392b;
+    --btn: #2d5be3; --btn-ink: #fff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { background: var(--card); border-bottom: 1px solid var(--line); padding: 16px 24px; }
+  header h1 { margin: 0; font-size: 18px; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+  header .hrow { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .hrow .right { display: flex; align-items: center; gap: 12px; flex: none; }
+  .navlink { font-size: 13px; text-decoration: none; color: var(--btn);
+             border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; white-space: nowrap; }
+  .navlink:hover { background: #eef2fb; }
+  .bell { position: relative; flex: none; font-size: 22px; line-height: 1; padding: 4px 6px; }
+  .bell.pulse { animation: bellpulse .6s ease; }
+  @keyframes bellpulse { 0%,100% { transform: none; }
+    30% { transform: scale(1.25) rotate(-9deg); } 65% { transform: scale(1.1) rotate(6deg); } }
+  .bell-badge { position: absolute; top: -3px; right: -5px; min-width: 18px; height: 18px;
+                padding: 0 4px; border-radius: 999px; background: var(--block); color: #fff;
+                font: 700 11px/18px -apple-system, BlinkMacSystemFont, sans-serif;
+                text-align: center; }
+  .bell-badge.zero { background: var(--muted); }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .bar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+  .bar button { background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+                padding: 7px 14px; cursor: pointer; font-size: 14px; }
+  .count { color: var(--muted); font-size: 14px; }
+  .msg { margin-left: auto; font-size: 13px; padding: 6px 10px; border-radius: 6px; }
+  .msg.ok { background: #e7f4ec; color: var(--pass); }
+  .msg.err { background: #fbeae8; color: var(--block); }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+          padding: 18px 20px; margin-bottom: 18px; }
+  .card h2 { margin: 0 0 2px; font-size: 16px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+  .badges { display: flex; gap: 8px; margin: 10px 0 14px; flex-wrap: wrap; }
+  .badge { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+           border: 1px solid currentColor; text-transform: uppercase; letter-spacing: .03em; }
+  .b-PASS { color: var(--pass); } .b-REVIEW { color: var(--review); } .b-BLOCK { color: var(--block); }
+  .b-sev { color: var(--muted); }
+
+  table.fields { border-collapse: collapse; width: 100%; font-size: 13.5px; margin-bottom: 12px; }
+  table.fields td { padding: 4px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.fields td.k { color: var(--muted); width: 168px; white-space: nowrap; }
+
+  .flags { margin: 0 0 12px; padding-left: 18px; font-size: 13.5px; }
+  .flags li { margin: 2px 0; }
+  .alert { background: #fbf6ec; border: 1px solid #ecdcb3; border-radius: 8px;
+           padding: 12px 14px; margin-bottom: 14px; }
+  .alert .subj { font-weight: 600; font-size: 13.5px; margin-bottom: 6px; }
+  .alert pre { margin: 0; white-space: pre-wrap; font: 12.5px/1.5 ui-monospace, Menlo, monospace;
+               color: #4a4030; }
+
+  .act { display: flex; gap: 10px; align-items: flex-start; flex-wrap: wrap; margin-top: 6px; }
+  .act input.who { flex: 1 1 220px; min-width: 180px; padding: 7px 9px; border: 1px solid var(--line);
+                   border-radius: 6px; font-size: 13px; }
+  .act textarea { flex: 2 1 100%; padding: 7px 9px; border: 1px solid var(--line);
+                  border-radius: 6px; font-size: 13px; resize: vertical; min-height: 38px; }
+  .act .buttons { display: flex; gap: 8px; flex: 1 1 100%; }
+  .act button { flex: 1; border: 0; border-radius: 6px; padding: 9px 12px; cursor: pointer;
+                font-size: 13.5px; font-weight: 600; color: var(--btn-ink); }
+  .approve { background: var(--pass); } .reject { background: var(--block); }
+  .info { background: var(--review); }
+  .act button:disabled { opacity: .5; cursor: default; }
+  .empty { color: var(--muted); text-align: center; padding: 48px 0; }
+  .note { color: var(--muted); font-size: 12px; margin-top: 24px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <div>
+      <h1>Payment Approvals</h1>
+      <p>Every capital call notice — cleared or flagged — waits here for a human decision.
+         Approving <strong>records sign-off only</strong>; this platform never sends a wire itself.
+         All data on screen is synthetic.</p>
+    </div>
+    <div class="right">
+      <a class="navlink" href="/ui/cash-planning">Cash Planning →</a>
+      <a class="navlink" href="/ui/forecasting">Forecasting →</a>
+      <a class="navlink" href="/ui/k1-routing">K-1 Routing →</a>
+      <div class="bell" id="bell" title="Notices awaiting a decision">
+        🔔<span class="bell-badge zero" id="bellCount">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="bar">
+    <button id="refresh">↻ Refresh</button>
+    <span class="count" id="count">loading…</span>
+    <span class="msg" id="msg" hidden></span>
+  </div>
+  <div id="list"></div>
+  <p class="note">Local demo surface — no login, no real delivery, single approver view.
+     Backed by <code>GET /approvals/pending</code> and <code>POST /approvals/{id}/decide</code>.</p>
+</div>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function money(v) {
+  if (typeof v === "number") return "$" + v.toLocaleString("en-US", { minimumFractionDigits: 2 });
+  return esc(v ?? "—");
+}
+
+function flash(text, kind) {
+  const m = $("#msg");
+  m.textContent = text; m.className = "msg " + kind; m.hidden = false;
+  clearTimeout(flash._t);
+  flash._t = setTimeout(() => { m.hidden = true; }, 4000);
+}
+
+// --- pending-count badge: just the length of GET /approvals/pending ---------
+let lastBadge = null;
+function setBadge(n) {
+  const el = $("#bellCount");
+  el.textContent = n;
+  el.classList.toggle("zero", n === 0);
+  // keep the "N notices awaiting a decision" text in lockstep with the bell —
+  // both driven by this one call, so they can never disagree on screen
+  $("#count").textContent = n
+    ? `${n} notice${n === 1 ? "" : "s"} awaiting a decision`
+    : "";
+  if (lastBadge != null && n > lastBadge) {           // new arrival -> pulse
+    const bell = $("#bell");
+    bell.classList.remove("pulse"); void bell.offsetWidth; bell.classList.add("pulse");
+  }
+  lastBadge = n;
+}
+async function pollBadge() {
+  try {
+    const r = await fetch("/approvals/pending");
+    if (!r.ok) return;                                // keep last known count
+    setBadge((await r.json()).length);
+  } catch (_) { /* offline blip — keep last known count */ }
+}
+
+function fieldRows(ext) {
+  const order = [
+    ["fund_name", "Fund"], ["entity", "Paying entity / GP"], ["amount", "Amount"],
+    ["bank_name", "Receiving bank"], ["routing_number", "Routing number"],
+    ["account_number", "Account number"], ["due_date", "Due date"],
+  ];
+  return order.filter(([k]) => ext && ext[k] != null && ext[k] !== "")
+    .map(([k, label]) => `<tr><td class="k">${label}</td><td>${
+      k === "amount" ? money(ext[k]) : esc(ext[k])}</td></tr>`).join("");
+}
+
+function card(rec) {
+  const vr = rec.verification_report || {};
+  const ext = vr.extracted || {};
+  const decision = rec.hub_decision || vr.decision || "—";
+  const sev = rec.hub_severity || vr.overall_severity || "none";
+  const appr = rec.assigned_approver || {};
+  const failed = vr.failed_checks || [];
+  const alert = vr.alert;
+
+  const flagsHtml = failed.length
+    ? `<ul class="flags">${failed.map(f => `<li>${esc(f.replace(/_/g, " "))}</li>`).join("")}</ul>`
+    : "";
+  const alertHtml = alert
+    ? `<div class="alert"><div class="subj">${esc(alert.subject || "")}</div>
+         <pre>${esc(alert.body || "")}</pre></div>`
+    : "";
+
+  return `
+  <div class="card" data-id="${esc(rec.approval_id)}">
+    <h2>${esc(rec.fund_name || ext.fund_name || rec.fund_id || "Unknown fund")}</h2>
+    <div class="sub">approval ${esc(rec.approval_id)} · created ${esc(rec.created_at)} ·
+      assigned to ${esc(appr.name || "unassigned")} &lt;${esc(appr.email || "?")}&gt;</div>
+    <div class="badges">
+      <span class="badge b-${esc(decision)}">${esc(decision)}</span>
+      <span class="badge b-sev">severity: ${esc(sev)}</span>
+      ${vr.confidence ? `<span class="badge b-sev">confidence: ${esc(vr.confidence)}</span>` : ""}
+    </div>
+    <table class="fields">${fieldRows(ext) || `<tr><td colspan="2">no extracted fields</td></tr>`}</table>
+    ${flagsHtml}
+    ${alertHtml}
+    <div class="act">
+      <input class="who" type="text" value="${esc(appr.email || "")}" placeholder="your email (acting as)" />
+      <textarea placeholder="note (optional) — e.g. 'confirmed with GP by phone'"></textarea>
+      <div class="buttons">
+        <button class="approve" data-state="APPROVED">Approve</button>
+        <button class="reject"  data-state="REJECTED">Reject</button>
+        <button class="info"    data-state="NEEDS_MORE_INFO">Needs more info</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function load() {
+  $("#count").textContent = "loading…";
+  let recs;
+  try {
+    const r = await fetch("/approvals/pending");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    recs = await r.json();
+  } catch (e) {
+    $("#count").textContent = "";
+    $("#list").innerHTML = `<div class="empty">Could not reach the API (${esc(e.message)}).<br>
+      Start it with <code>uvicorn agents.app:app --reload</code> and refresh.</div>`;
+    return;
+  }
+  setBadge(recs.length);   // updates the bell AND the "N notices…" text together
+  $("#list").innerHTML = recs.length
+    ? recs.map(card).join("")
+    : `<div class="empty">Nothing pending. Every notice has been decided.</div>`;
+}
+
+async function decide(cardEl, state) {
+  const id = cardEl.dataset.id;
+  const who = $(".who", cardEl).value.trim();
+  const note = $("textarea", cardEl).value.trim();
+  if (!who) { flash("Enter your email in the 'acting as' field first.", "err"); return; }
+  $$(cardEl, "button").forEach(b => b.disabled = true);
+  try {
+    const r = await fetch(`/approvals/${encodeURIComponent(id)}/decide`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ state, approver: who, note: note || null }),
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      flash(`${r.status}: ${esc(data.detail || "decision rejected")}`, "err");
+      $$(cardEl, "button").forEach(b => b.disabled = false);
+      return;
+    }
+    flash(`Recorded ${state} on ${id}.`, "ok");
+    await load();                       // refetch — reflect the real state change
+  } catch (e) {
+    flash("Network error: " + esc(e.message), "err");
+    $$(cardEl, "button").forEach(b => b.disabled = false);
+  }
+}
+function $$(root, sel) { return [...root.querySelectorAll(sel)]; }
+
+$("#refresh").addEventListener("click", load);
+$("#list").addEventListener("click", e => {
+  const btn = e.target.closest("button[data-state]");
+  if (btn) decide(btn.closest(".card"), btn.dataset.state);
+});
+load();
+setInterval(pollBadge, 7000);   // badge self-updates; list still refreshes on action / button
+</script>
+</body>
+</html>

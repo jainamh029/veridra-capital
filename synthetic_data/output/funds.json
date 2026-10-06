@@ -1,0 +1,1490 @@
+[
+  {
+    "fund_id": "FUND-01",
+    "fund_name": "Fieldstone Equity Partners II",
+    "fund_type": "Growth Equity",
+    "vintage_year": 2022,
+    "target_size_usd": 150000000,
+    "committed_capital_usd": 145528949.43,
+    "gp_entity_name": "Fieldstone Equity Management, LLC",
+    "domain": "fieldstoneequity.com",
+    "contact_email": "investor.relations@fieldstoneequity.com",
+    "baseline_bank_name": "Meridian Trust Bank",
+    "baseline_routing_number": "013710895",
+    "baseline_account_number": "9280796110",
+    "fund_admin_name": "Northbridge Fund Admin Partners",
+    "synthetic": true,
+    "lp_count": 24,
+    "lps": [
+      {
+        "lp_id": "LP-001",
+        "lp_name": "Haas Group Retirement System",
+        "commitment_pct": 0.031715,
+        "commitment_usd": 4615390.38
+      },
+      {
+        "lp_id": "LP-002",
+        "lp_name": "Barnett Inc University Endowment",
+        "commitment_pct": 0.048386,
+        "commitment_usd": 7041502.29
+      },
+      {
+        "lp_id": "LP-003",
+        "lp_name": "Houston Knox and Burch Family Office",
+        "commitment_pct": 0.05616,
+        "commitment_usd": 8172961.92
+      },
+      {
+        "lp_id": "LP-004",
+        "lp_name": "Mcclain Mccormick and Merritt Endowment",
+        "commitment_pct": 0.048988,
+        "commitment_usd": 7129154.12
+      },
+      {
+        "lp_id": "LP-005",
+        "lp_name": "Burns PLC Family Office",
+        "commitment_pct": 0.042243,
+        "commitment_usd": 6147591.27
+      },
+      {
+        "lp_id": "LP-006",
+        "lp_name": "Stanley Morris and Romero Foundation",
+        "commitment_pct": 0.053398,
+        "commitment_usd": 7770923.71
+      },
+      {
+        "lp_id": "LP-007",
+        "lp_name": "Chung Watkins and Boone Family Office",
+        "commitment_pct": 0.039053,
+        "commitment_usd": 5683295.54
+      },
+      {
+        "lp_id": "LP-008",
+        "lp_name": "Thomas-Avila Foundation",
+        "commitment_pct": 0.025015,
+        "commitment_usd": 3640369.77
+      },
+      {
+        "lp_id": "LP-009",
+        "lp_name": "Contreras Ltd Pension Fund",
+        "commitment_pct": 0.037087,
+        "commitment_usd": 5397162.69
+      },
+      {
+        "lp_id": "LP-010",
+        "lp_name": "Sanchez-Morris University Endowment",
+        "commitment_pct": 0.056415,
+        "commitment_usd": 8209982.26
+      },
+      {
+        "lp_id": "LP-011",
+        "lp_name": "Torres LLC Family Office",
+        "commitment_pct": 0.030493,
+        "commitment_usd": 4437543.52
+      },
+      {
+        "lp_id": "LP-012",
+        "lp_name": "Garner Inc University Endowment",
+        "commitment_pct": 0.030581,
+        "commitment_usd": 4450372.57
+      },
+      {
+        "lp_id": "LP-013",
+        "lp_name": "White Young and Gray Pension Fund",
+        "commitment_pct": 0.052589,
+        "commitment_usd": 7653237.74
+      },
+      {
+        "lp_id": "LP-014",
+        "lp_name": "King Anderson and Ross Insurance Investment Trust",
+        "commitment_pct": 0.053852,
+        "commitment_usd": 7837027.28
+      },
+      {
+        "lp_id": "LP-015",
+        "lp_name": "Conner Bauer and Johnson Endowment",
+        "commitment_pct": 0.038099,
+        "commitment_usd": 5544434.83
+      },
+      {
+        "lp_id": "LP-016",
+        "lp_name": "Taylor-Smith Insurance Investment Trust",
+        "commitment_pct": 0.04364,
+        "commitment_usd": 6350901.93
+      },
+      {
+        "lp_id": "LP-017",
+        "lp_name": "Moss LLC Family Office",
+        "commitment_pct": 0.019428,
+        "commitment_usd": 2827274.86
+      },
+      {
+        "lp_id": "LP-018",
+        "lp_name": "Mitchell-Jacobs Endowment",
+        "commitment_pct": 0.042581,
+        "commitment_usd": 6196828.51
+      },
+      {
+        "lp_id": "LP-019",
+        "lp_name": "Rodriguez-Baxter Family Office",
+        "commitment_pct": 0.039061,
+        "commitment_usd": 5684438.38
+      },
+      {
+        "lp_id": "LP-020",
+        "lp_name": "Robinson Duffy and Sanchez Family Office",
+        "commitment_pct": 0.03957,
+        "commitment_usd": 5758602.58
+      },
+      {
+        "lp_id": "LP-021",
+        "lp_name": "Heath-Thomas Endowment",
+        "commitment_pct": 0.047407,
+        "commitment_usd": 6899158.67
+      },
+      {
+        "lp_id": "LP-022",
+        "lp_name": "Mcgrath Clarke and Nguyen Insurance Investment Trust",
+        "commitment_pct": 0.035222,
+        "commitment_usd": 5125810.78
+      },
+      {
+        "lp_id": "LP-023",
+        "lp_name": "Anderson Duncan and Heath Foundation",
+        "commitment_pct": 0.032893,
+        "commitment_usd": 4786942.35
+      },
+      {
+        "lp_id": "LP-024",
+        "lp_name": "Kelley Ortega and Lara Endowment",
+        "commitment_pct": 0.056127,
+        "commitment_usd": 8168041.5
+      }
+    ],
+    "assigned_approver": {
+      "name": "Dana Whitfield",
+      "email": "dwhitfield@synthetic-ops.example",
+      "role": "Controller"
+    }
+  },
+  {
+    "fund_id": "FUND-02",
+    "fund_name": "Sagebrush Ventures Partners IV",
+    "fund_type": "Growth Equity",
+    "vintage_year": 2020,
+    "target_size_usd": 275000000,
+    "committed_capital_usd": 256675103.56,
+    "gp_entity_name": "Sagebrush Ventures Management, LLC",
+    "domain": "sagebrushventures.com",
+    "contact_email": "investor.relations@sagebrushventures.com",
+    "baseline_bank_name": "Cornerstone National Bank",
+    "baseline_routing_number": "058503795",
+    "baseline_account_number": "16387493850",
+    "fund_admin_name": "Standish Fund Services",
+    "synthetic": true,
+    "lp_count": 15,
+    "lps": [
+      {
+        "lp_id": "LP-001",
+        "lp_name": "Walton-Holt University Endowment",
+        "commitment_pct": 0.059903,
+        "commitment_usd": 15375607.91
+      },
+      {
+        "lp_id": "LP-002",
+        "lp_name": "Frost Hobbs and Dominguez University Endowment",
+        "commitment_pct": 0.033737,
+        "commitment_usd": 8659516.74
+      },
+      {
+        "lp_id": "LP-003",
+        "lp_name": "Peterson-Bradshaw Endowment",
+        "commitment_pct": 0.053082,
+        "commitment_usd": 13624782.78
+      },
+      {
+        "lp_id": "LP-004",
+        "lp_name": "Osborne and Sons Family Office",
+        "commitment_pct": 0.043005,
+        "commitment_usd": 11038314.12
+      },
+      {
+        "lp_id": "LP-005",
+        "lp_name": "Smith-Wright Endowment",
+        "commitment_pct": 0.064606,
+        "commitment_usd": 16582854.7
+      },
+      {
+        "lp_id": "LP-006",
+        "lp_name": "Johnson-Smith University Endowment",
+        "commitment_pct": 0.087125,
+        "commitment_usd": 22362845.78
+      },
+      {
+        "lp_id": "LP-007",
+        "lp_name": "Russo PLC Family Office",
+        "commitment_pct": 0.049313,
+        "commitment_usd": 12657478.76
+      },
+      {
+        "lp_id": "LP-008",
+        "lp_name": "Pace-Miller Family Office",
+        "commitment_pct": 0.081184,
+        "commitment_usd": 20837826.52
+      },
+      {
+        "lp_id": "LP-009",
+        "lp_name": "Mitchell Inc Retirement System",
+        "commitment_pct": 0.058212,
+        "commitment_usd": 14941606.73
+      },
+      {
+        "lp_id": "LP-010",
+        "lp_name": "Pennington Thompson and Vargas Insurance Investment Trust",
+        "commitment_pct": 0.097842,
+        "commitment_usd": 25113649.4
+      },
+      {
+        "lp_id": "LP-011",
+        "lp_name": "Williams Cole and Barnes Retirement System",
+        "commitment_pct": 0.068839,
+        "commitment_usd": 17669282.06
+      },
+      {
+        "lp_id": "LP-012",
+        "lp_name": "Goodman Inc Pension Fund",
+        "commitment_pct": 0.06394,
+        "commitment_usd": 16411819.97
+      },
+      {
+        "lp_id": "LP-013",
+        "lp_name": "Rogers Doyle and Mclean University Endowment",
+        "commitment_pct": 0.086174,
+        "commitment_usd": 22118632.43
+      },
+      {
+        "lp_id": "LP-014",
+        "lp_name": "Chapman-Vincent Insurance Investment Trust",
+        "commitment_pct": 0.083109,
+        "commitment_usd": 21332040.1
+      },
+      {
+        "lp_id": "LP-015",
+        "lp_name": "Herrera Sullivan and Bell Family Office",
+        "commitment_pct": 0.069928,
+        "commitment_usd": 17948845.57
+      }
+    ],
+    "assigned_approver": {
+      "name": "Marcus True",
+      "email": "mtrue@synthetic-ops.example",
+      "role": "Controller"
+    }
+  },
+  {
+    "fund_id": "FUND-03",
+    "fund_name": "Blackfern Ventures Partners IV",
+    "fund_type": "Growth Equity",
+    "vintage_year": 2021,
+    "target_size_usd": 275000000,
+    "committed_capital_usd": 268425700.15,
+    "gp_entity_name": "Blackfern Ventures Management, LLC",
+    "domain": "blackfernventures.com",
+    "contact_email": "investor.relations@blackfernventures.com",
+    "baseline_bank_name": "Blue Harbor Bank & Trust",
+    "baseline_routing_number": "098588929",
+    "baseline_account_number": "993859245",
+    "fund_admin_name": "Meridian Fund Administration",
+    "synthetic": true,
+    "lp_count": 21,
+    "lps": [
+      {
+        "lp_id": "LP-001",
+        "lp_name": "Velez-Charles Family Office",
+        "commitment_pct": 0.027722,
+        "commitment_usd": 7441380.83
+      },
+      {
+        "lp_id": "LP-002",
+        "lp_name": "Parrish Group Family Office",
+        "commitment_pct": 0.030464,
+        "commitment_usd": 8177283.25
+      },
+      {
+        "lp_id": "LP-003",
+        "lp_name": "Howell Williams and Carlson Pension Fund",
+        "commitment_pct": 0.042237,
+        "commitment_usd": 11337617.54
+      },
+      {
+        "lp_id": "LP-004",
+        "lp_name": "Woodward Hurley and Owens Family Office",
+        "commitment_pct": 0.034271,
+        "commitment_usd": 9199278.45
+      },
+      {
+        "lp_id": "LP-005",
+        "lp_name": "Cox LLC Retirement System",
+        "commitment_pct": 0.061277,
+        "commitment_usd": 16448338.38
+      },
+      {
+        "lp_id": "LP-006",
+        "lp_name": "Melton Harris and Wells Endowment",
+        "commitment_pct": 0.060499,
+        "commitment_usd": 16239421.62
+      },
+      {
+        "lp_id": "LP-007",
+        "lp_name": "Keith-Cobb Endowment",
+        "commitment_pct": 0.046251,
+        "commitment_usd": 12414880.95
+      },
+      {
+        "lp_id": "LP-008",
+        "lp_name": "Trevino-Brown Family Office",
+        "commitment_pct": 0.04531,
+        "commitment_usd": 12162249.15
+      },
+      {
+        "lp_id": "LP-009",
+        "lp_name": "Reese and Sons Retirement System",
+        "commitment_pct": 0.034426,
+        "commitment_usd": 9240937.43
+      },
+      {
+        "lp_id": "LP-010",
+        "lp_name": "Murphy-Estrada Foundation",
+        "commitment_pct": 0.059906,
+        "commitment_usd": 16080227.72
+      },
+      {
+        "lp_id": "LP-011",
+        "lp_name": "Nelson Ltd Family Office",
+        "commitment_pct": 0.066562,
+        "commitment_usd": 17866855.26
+      },
+      {
+        "lp_id": "LP-012",
+        "lp_name": "Adams Ross and Diaz Endowment",
+        "commitment_pct": 0.036881,
+        "commitment_usd": 9899871.67
+      },
+      {
+        "lp_id": "LP-013",
+        "lp_name": "Liu Inc Retirement System",
+        "commitment_pct": 0.066064,
+        "commitment_usd": 17733174.1
+      },
+      {
+        "lp_id": "LP-014",
+        "lp_name": "Owen-Robinson Pension Fund",
+        "commitment_pct": 0.072835,
+        "commitment_usd": 19550679.72
+      },
+      {
+        "lp_id": "LP-015",
+        "lp_name": "Edwards-Gonzalez Family Office",
+        "commitment_pct": 0.023736,
+        "commitment_usd": 6371230.62
+      },
+      {
+        "lp_id": "LP-016",
+        "lp_name": "Brown-Perry Foundation",
+        "commitment_pct": 0.060576,
+        "commitment_usd": 16260061.18
+      },
+      {
+        "lp_id": "LP-017",
+        "lp_name": "Richardson and Sons University Endowment",
+        "commitment_pct": 0.04712,
+        "commitment_usd": 12648203.58
+      },
+      {
+        "lp_id": "LP-018",
+        "lp_name": "Snyder-Thomas Family Office",
+        "commitment_pct": 0.067482,
+        "commitment_usd": 18114030.46
+      },
+      {
+        "lp_id": "LP-019",
+        "lp_name": "Reeves Group University Endowment",
+        "commitment_pct": 0.032741,
+        "commitment_usd": 8788647.77
+      },
+      {
+        "lp_id": "LP-020",
+        "lp_name": "Gould-Fernandez Foundation",
+        "commitment_pct": 0.033977,
+        "commitment_usd": 9120319.5
+      },
+      {
+        "lp_id": "LP-021",
+        "lp_name": "Schultz-Barron Foundation",
+        "commitment_pct": 0.049664,
+        "commitment_usd": 13331010.97
+      }
+    ],
+    "assigned_approver": {
+      "name": "Priya Anand",
+      "email": "panand@synthetic-ops.example",
+      "role": "Assistant Controller"
+    }
+  },
+  {
+    "fund_id": "FUND-04",
+    "fund_name": "Cobblestone Capital Partners III",
+    "fund_type": "Buyout",
+    "vintage_year": 2020,
+    "target_size_usd": 450000000,
+    "committed_capital_usd": 447138929.1,
+    "gp_entity_name": "Cobblestone Capital Management, LLC",
+    "domain": "cobblestonecapital.com",
+    "contact_email": "investor.relations@cobblestonecapital.com",
+    "baseline_bank_name": "Highland Ridge Bank",
+    "baseline_routing_number": "094222438",
+    "baseline_account_number": "229464147615",
+    "fund_admin_name": "Northbridge Fund Admin Partners",
+    "synthetic": true,
+    "lp_count": 16,
+    "lps": [
+      {
+        "lp_id": "LP-001",
+        "lp_name": "Peters Malone and Lopez Family Office",
+        "commitment_pct": 0.079148,
+        "commitment_usd": 35390277.42
+      },
+      {
+        "lp_id": "LP-002",
+        "lp_name": "Gonzalez-Kelly Retirement System",
+        "commitment_pct": 0.029622,
+        "commitment_usd": 13244996.14
+      },
+      {
+        "lp_id": "LP-003",
+        "lp_name": "Page Smith and Cooley Foundation",
+        "commitment_pct": 0.064375,
+        "commitment_usd": 28784362.36
+      },
+      {
+        "lp_id": "LP-004",
+        "lp_name": "Rogers-Ferguson Pension Fund",
+        "commitment_pct": 0.034328,
+        "commitment_usd": 15349312.08
+      },
+      {
+        "lp_id": "LP-005",
+        "lp_name": "Gomez and Sons Retirement System",
+        "commitment_pct": 0.0476,
+        "commitment_usd": 21283627.69
+      },
+      {
+        "lp_id": "LP-006",
+        "lp_name": "Williamson PLC Foundation",
+        "commitment_pct": 0.078989,
+        "commitment_usd": 35319212.45
+      },
+      {
+        "lp_id": "LP-007",
+        "lp_name": "Weaver PLC Retirement System",
+        "commitment_pct": 0.080206,
+        "commitment_usd": 35863377.49
+      },
+      {
+        "lp_id": "LP-008",
+        "lp_name": "Scott LLC Retirement System",
+        "commitment_pct": 0.084243,
+        "commitment_usd": 37668329.23
+      },
+      {
+        "lp_id": "LP-009",
+        "lp_name": "Garcia-Moore Foundation",
+        "commitment_pct": 0.046396,
+        "commitment_usd": 20745470.33
+      },
+      {
+        "lp_id": "LP-010",
+        "lp_name": "Chapman-Cole Endowment",
+        "commitment_pct": 0.053659,
+        "commitment_usd": 23993020.97
+      },
+      {
+        "lp_id": "LP-011",
+        "lp_name": "Simon Ellis and Gonzales Pension Fund",
+        "commitment_pct": 0.070741,
+        "commitment_usd": 31630991.37
+      },
+      {
+        "lp_id": "LP-012",
+        "lp_name": "Lucas LLC Foundation",
+        "commitment_pct": 0.052635,
+        "commitment_usd": 23534965.18
+      },
+      {
+        "lp_id": "LP-013",
+        "lp_name": "Ramirez-Monroe University Endowment",
+        "commitment_pct": 0.069023,
+        "commitment_usd": 30862926.27
+      },
+      {
+        "lp_id": "LP-014",
+        "lp_name": "Johnson Ltd Foundation",
+        "commitment_pct": 0.093704,
+        "commitment_usd": 41898484.93
+      },
+      {
+        "lp_id": "LP-015",
+        "lp_name": "Wells-Hancock Pension Fund",
+        "commitment_pct": 0.057246,
+        "commitment_usd": 25596732.37
+      },
+      {
+        "lp_id": "LP-016",
+        "lp_name": "Campos PLC Retirement System",
+        "commitment_pct": 0.058087,
+        "commitment_usd": 25972842.81
+      }
+    ],
+    "assigned_approver": {
+      "name": "Sam Ellery",
+      "email": "sellery@synthetic-ops.example",
+      "role": "Head of Finance Ops"
+    }
+  },
+  {
+    "fund_id": "FUND-05",
+    "fund_name": "Rivergate Ventures Partners IV",
+    "fund_type": "Buyout",
+    "vintage_year": 2022,
+    "target_size_usd": 600000000,
+    "committed_capital_usd": 565060068.33,
+    "gp_entity_name": "Rivergate Ventures Management, LLC",
+    "domain": "rivergateventures.com",
+    "contact_email": "investor.relations@rivergateventures.com",
+    "baseline_bank_name": "Pacific Crest Bank",
+    "baseline_routing_number": "115234512",
+    "baseline_account_number": "301752386",
+    "fund_admin_name": "Northbridge Fund Admin Partners",
+    "synthetic": true,
+    "lp_count": 15,
+    "lps": [
+      {
+        "lp_id": "LP-001",
+        "lp_name": "Lopez Cook and Smith University Endowment",
+        "commitment_pct": 0.034593,
+        "commitment_usd": 19547182.48
+      },
+      {
+        "lp_id": "LP-002",
+        "lp_name": "Holder Clark and Hansen Pension Fund",
+        "commitment_pct": 0.08538,
+        "commitment_usd": 48245028.13
+      },
+      {
+        "lp_id": "LP-003",
+        "lp_name": "Harris-Holmes Insurance Investment Trust",
+        "commitment_pct": 0.073,
+        "commitment_usd": 41249261.86
+      },
+      {
+        "lp_id": "LP-004",
+        "lp_name": "Turner LLC University Endowment",
+        "commitment_pct": 0.047136,
+        "commitment_usd": 26634662.97
+      },
+      {
+        "lp_id": "LP-005",
+        "lp_name": "Porter-Adams Insurance Investment Trust",
+        "commitment_pct": 0.07114,
+        "commitment_usd": 40198203.93
+      },
+      {
+        "lp_id": "LP-006",
+        "lp_name": "Mendez-Lambert Family Office",
+        "commitment_pct": 0.088755,
+        "commitment_usd": 50151924.58
+      },
+      {
+        "lp_id": "LP-007",
+        "lp_name": "Knight PLC Insurance Investment Trust",
+        "commitment_pct": 0.042971,
+        "commitment_usd": 24281301.69
+      },
+      {
+        "lp_id": "LP-008",
+        "lp_name": "Dickerson-Graves Endowment",
+        "commitment_pct": 0.036103,
+        "commitment_usd": 20400338.55
+      },
+      {
+        "lp_id": "LP-009",
+        "lp_name": "Cunningham Group Insurance Investment Trust",
+        "commitment_pct": 0.096244,
+        "commitment_usd": 54383513.14
+      },
+      {
+        "lp_id": "LP-010",
+        "lp_name": "Mcpherson-Miller Foundation",
+        "commitment_pct": 0.058363,
+        "commitment_usd": 32978655.0
+      },
+      {
+        "lp_id": "LP-011",
+        "lp_name": "Chavez-Ross Family Office",
+        "commitment_pct": 0.063238,
+        "commitment_usd": 35733019.55
+      },
+      {
+        "lp_id": "LP-012",
+        "lp_name": "Jones-Jones Family Office",
+        "commitment_pct": 0.066749,
+        "commitment_usd": 37717029.25
+      },
+      {
+        "lp_id": "LP-013",
+        "lp_name": "Luna Hubbard and York Pension Fund",
+        "commitment_pct": 0.08143,
+        "commitment_usd": 46013073.93
+      },
+      {
+        "lp_id": "LP-014",
+        "lp_name": "Waters Monroe and Adams Retirement System",
+        "commitment_pct": 0.06602,
+        "commitment_usd": 37305124.03
+      },
+      {
+        "lp_id": "LP-015",
+        "lp_name": "Johnson-Brown Endowment",
+        "commitment_pct": 0.088879,
+        "commitment_usd": 50221749.23
+      }
+    ],
+    "assigned_approver": {
+      "name": "Dana Whitfield",
+      "email": "dwhitfield@synthetic-ops.example",
+      "role": "Controller"
+    }
+  },
+  {
+    "fund_id": "FUND-06",
+    "fund_name": "Stonegate Capital Partners IV",
+    "fund_type": "Buyout",
+    "vintage_year": 2021,
+    "target_size_usd": 200000000,
+    "committed_capital_usd": 192895774.39,
+    "gp_entity_name": "Stonegate Capital Management, LLC",
+    "domain": "stonegatecapital.com",
+    "contact_email": "investor.relations@stonegatecapital.com",
+    "baseline_bank_name": "Ironwood Commercial Bank",
+    "baseline_routing_number": "120923627",
+    "baseline_account_number": "436846058283",
+    "fund_admin_name": "Northbridge Fund Admin Partners",
+    "synthetic": true,
+    "lp_count": 22,
+    "lps": [
+      {
+        "lp_id": "LP-001",
+        "lp_name": "Lynch Whitney and Reynolds Foundation",
+        "commitment_pct": 0.046235,
+        "commitment_usd": 8918463.23
+      },
+      {
+        "lp_id": "LP-002",
+        "lp_name": "Holmes-Pierce Retirement System",
+        "commitment_pct": 0.027697,
+        "commitment_usd": 5342630.43
+      },
+      {
+        "lp_id": "LP-003",
+        "lp_name": "Oliver PLC Insurance Investment Trust",
+        "commitment_pct": 0.065925,
+        "commitment_usd": 12716579.14
+      },
+      {
+        "lp_id": "LP-004",
+        "lp_name": "Long Brown and Boyer University Endowment",
+        "commitment_pct": 0.020239,
+        "commitment_usd": 3904024.92
+      },
+      {
+        "lp_id": "LP-005",
+        "lp_name": "Cunningham and Sons Foundation",
+        "commitment_pct": 0.058948,
+        "commitment_usd": 11370818.6
+      },
+      {
+        "lp_id": "LP-006",
+        "lp_name": "Watts-Stone Family Office",
+        "commitment_pct": 0.063782,
+        "commitment_usd": 12303275.55
+      },
+      {
+        "lp_id": "LP-007",
+        "lp_name": "Barron-Wong Family Office",
+        "commitment_pct": 0.043413,
+        "commitment_usd": 8374178.11
+      },
+      {
+        "lp_id": "LP-008",
+        "lp_name": "Giles Ltd Pension Fund",
+        "commitment_pct": 0.04746,
+        "commitment_usd": 9154765.2
+      },
+      {
+        "lp_id": "LP-009",
+        "lp_name": "Davis Group Insurance Investment Trust",
+        "commitment_pct": 0.053424,
+        "commitment_usd": 10305332.89
+      },
+      {
+        "lp_id": "LP-010",
+        "lp_name": "Stokes-Bright Insurance Investment Trust",
+        "commitment_pct": 0.055618,
+        "commitment_usd": 10728411.41
+      },
+      {
+        "lp_id": "LP-011",
+        "lp_name": "Charles Ortiz and Williams Foundation",
+        "commitment_pct": 0.055155,
+        "commitment_usd": 10639080.18
+      },
+      {
+        "lp_id": "LP-012",
+        "lp_name": "Mitchell Cross and Hamilton Foundation",
+        "commitment_pct": 0.021469,
+        "commitment_usd": 4141269.12
+      },
+      {
+        "lp_id": "LP-013",
+        "lp_name": "Bauer and Sons University Endowment",
+        "commitment_pct": 0.040201,
+        "commitment_usd": 7754534.38
+      },
+      {
+        "lp_id": "LP-014",
+        "lp_name": "Jones-Prince Endowment",
+        "commitment_pct": 0.044849,
+        "commitment_usd": 8651104.59
+      },
+      {
+        "lp_id": "LP-015",
+        "lp_name": "Gray-Parsons Family Office",
+        "commitment_pct": 0.062381,
+        "commitment_usd": 12033054.94
+      },
+      {
+        "lp_id": "LP-016",
+        "lp_name": "Steele Castillo and Flynn Family Office",
+        "commitment_pct": 0.040418,
+        "commitment_usd": 7796368.26
+      },
+      {
+        "lp_id": "LP-017",
+        "lp_name": "Rodgers Ltd Pension Fund",
+        "commitment_pct": 0.03539,
+        "commitment_usd": 6826613.82
+      },
+      {
+        "lp_id": "LP-018",
+        "lp_name": "Rodgers-Mcclure Insurance Investment Trust",
+        "commitment_pct": 0.033216,
+        "commitment_usd": 6407157.03
+      },
+      {
+        "lp_id": "LP-019",
+        "lp_name": "Brooks-Johnson Retirement System",
+        "commitment_pct": 0.062327,
+        "commitment_usd": 12022582.27
+      },
+      {
+        "lp_id": "LP-020",
+        "lp_name": "Brown PLC Endowment",
+        "commitment_pct": 0.031315,
+        "commitment_usd": 6040544.22
+      },
+      {
+        "lp_id": "LP-021",
+        "lp_name": "Harper Walker and Hawkins Endowment",
+        "commitment_pct": 0.029655,
+        "commitment_usd": 5720385.81
+      },
+      {
+        "lp_id": "LP-022",
+        "lp_name": "Rojas-Dodson Pension Fund",
+        "commitment_pct": 0.060886,
+        "commitment_usd": 11744600.28
+      }
+    ],
+    "assigned_approver": {
+      "name": "Marcus True",
+      "email": "mtrue@synthetic-ops.example",
+      "role": "Controller"
+    }
+  },
+  {
+    "fund_id": "FUND-07",
+    "fund_name": "Thornbury Ventures Partners III",
+    "fund_type": "Growth Equity",
+    "vintage_year": 2020,
+    "target_size_usd": 350000000,
+    "committed_capital_usd": 344447901.61,
+    "gp_entity_name": "Thornbury Ventures Management, LLC",
+    "domain": "thornburyventures.com",
+    "contact_email": "investor.relations@thornburyventures.com",
+    "baseline_bank_name": "Summit Peak Bank",
+    "baseline_routing_number": "114727651",
+    "baseline_account_number": "249256765",
+    "fund_admin_name": "Meridian Fund Administration",
+    "synthetic": true,
+    "lp_count": 25,
+    "lps": [
+      {
+        "lp_id": "LP-001",
+        "lp_name": "Barnes LLC University Endowment",
+        "commitment_pct": 0.026152,
+        "commitment_usd": 9007886.24
+      },
+      {
+        "lp_id": "LP-002",
+        "lp_name": "Hughes Howard and Moore Retirement System",
+        "commitment_pct": 0.050649,
+        "commitment_usd": 17446061.66
+      },
+      {
+        "lp_id": "LP-003",
+        "lp_name": "Robinson Kramer and Bradley Pension Fund",
+        "commitment_pct": 0.050839,
+        "commitment_usd": 17511510.4
+      },
+      {
+        "lp_id": "LP-004",
+        "lp_name": "Church Group Insurance Investment Trust",
+        "commitment_pct": 0.036517,
+        "commitment_usd": 12578275.27
+      },
+      {
+        "lp_id": "LP-005",
+        "lp_name": "Crawford and Sons Pension Fund",
+        "commitment_pct": 0.057269,
+        "commitment_usd": 19726305.89
+      },
+      {
+        "lp_id": "LP-006",
+        "lp_name": "Wilson George and Stout Endowment",
+        "commitment_pct": 0.048941,
+        "commitment_usd": 16857774.07
+      },
+      {
+        "lp_id": "LP-007",
+        "lp_name": "Blake-Johnson Retirement System",
+        "commitment_pct": 0.02373,
+        "commitment_usd": 8173861.9
+      },
+      {
+        "lp_id": "LP-008",
+        "lp_name": "Welch-Beard Insurance Investment Trust",
+        "commitment_pct": 0.058054,
+        "commitment_usd": 19996670.25
+      },
+      {
+        "lp_id": "LP-009",
+        "lp_name": "Alexander Cook and Mitchell University Endowment",
+        "commitment_pct": 0.037389,
+        "commitment_usd": 12878597.83
+      },
+      {
+        "lp_id": "LP-010",
+        "lp_name": "Sanchez-Clark Endowment",
+        "commitment_pct": 0.040955,
+        "commitment_usd": 14106774.62
+      },
+      {
+        "lp_id": "LP-011",
+        "lp_name": "Lawson-Herman Insurance Investment Trust",
+        "commitment_pct": 0.039273,
+        "commitment_usd": 13527623.72
+      },
+      {
+        "lp_id": "LP-012",
+        "lp_name": "Peterson-Johnson Family Office",
+        "commitment_pct": 0.037186,
+        "commitment_usd": 12808810.81
+      },
+      {
+        "lp_id": "LP-013",
+        "lp_name": "Wong Powell and Nicholson Endowment",
+        "commitment_pct": 0.041417,
+        "commitment_usd": 14265924.23
+      },
+      {
+        "lp_id": "LP-014",
+        "lp_name": "Watson-Holt Family Office",
+        "commitment_pct": 0.039754,
+        "commitment_usd": 13693061.05
+      },
+      {
+        "lp_id": "LP-015",
+        "lp_name": "Perez and Sons Insurance Investment Trust",
+        "commitment_pct": 0.036997,
+        "commitment_usd": 12743428.44
+      },
+      {
+        "lp_id": "LP-016",
+        "lp_name": "Cameron-Bell Insurance Investment Trust",
+        "commitment_pct": 0.047399,
+        "commitment_usd": 16326361.45
+      },
+      {
+        "lp_id": "LP-017",
+        "lp_name": "Hamilton LLC Endowment",
+        "commitment_pct": 0.051209,
+        "commitment_usd": 17638692.29
+      },
+      {
+        "lp_id": "LP-018",
+        "lp_name": "Berg and Sons Pension Fund",
+        "commitment_pct": 0.021559,
+        "commitment_usd": 7425917.15
+      },
+      {
+        "lp_id": "LP-019",
+        "lp_name": "Bond Mitchell and Woodard Endowment",
+        "commitment_pct": 0.043439,
+        "commitment_usd": 14962490.37
+      },
+      {
+        "lp_id": "LP-020",
+        "lp_name": "Bartlett Group Endowment",
+        "commitment_pct": 0.035502,
+        "commitment_usd": 12228640.99
+      },
+      {
+        "lp_id": "LP-021",
+        "lp_name": "Butler-Guerrero Family Office",
+        "commitment_pct": 0.045247,
+        "commitment_usd": 15585129.13
+      },
+      {
+        "lp_id": "LP-022",
+        "lp_name": "Gallagher Tate and Jordan Foundation",
+        "commitment_pct": 0.02745,
+        "commitment_usd": 9455199.78
+      },
+      {
+        "lp_id": "LP-023",
+        "lp_name": "Cummings Anderson and Hurley Endowment",
+        "commitment_pct": 0.035842,
+        "commitment_usd": 12345753.18
+      },
+      {
+        "lp_id": "LP-024",
+        "lp_name": "Mcguire-Bennett Pension Fund",
+        "commitment_pct": 0.033921,
+        "commitment_usd": 11684107.24
+      },
+      {
+        "lp_id": "LP-025",
+        "lp_name": "Griffin-Payne Insurance Investment Trust",
+        "commitment_pct": 0.033309,
+        "commitment_usd": 11473043.63
+      }
+    ],
+    "assigned_approver": {
+      "name": "Priya Anand",
+      "email": "panand@synthetic-ops.example",
+      "role": "Assistant Controller"
+    }
+  },
+  {
+    "fund_id": "FUND-08",
+    "fund_name": "Brightwater Growth Partners II",
+    "fund_type": "Buyout",
+    "vintage_year": 2022,
+    "target_size_usd": 275000000,
+    "committed_capital_usd": 256200510.66,
+    "gp_entity_name": "Brightwater Growth Management, LLC",
+    "domain": "brightwatergrowth.com",
+    "contact_email": "investor.relations@brightwatergrowth.com",
+    "baseline_bank_name": "Lakeshore National Bank",
+    "baseline_routing_number": "101408721",
+    "baseline_account_number": "471325290671",
+    "fund_admin_name": "Meridian Fund Administration",
+    "synthetic": true,
+    "lp_count": 25,
+    "lps": [
+      {
+        "lp_id": "LP-001",
+        "lp_name": "Crosby Rowland and Garcia Foundation",
+        "commitment_pct": 0.02216,
+        "commitment_usd": 5677411.93
+      },
+      {
+        "lp_id": "LP-002",
+        "lp_name": "Miller-Wheeler Insurance Investment Trust",
+        "commitment_pct": 0.025052,
+        "commitment_usd": 6418332.61
+      },
+      {
+        "lp_id": "LP-003",
+        "lp_name": "Kline-Henry Insurance Investment Trust",
+        "commitment_pct": 0.026213,
+        "commitment_usd": 6715895.4
+      },
+      {
+        "lp_id": "LP-004",
+        "lp_name": "Perry-Wood Retirement System",
+        "commitment_pct": 0.045135,
+        "commitment_usd": 11563713.44
+      },
+      {
+        "lp_id": "LP-005",
+        "lp_name": "Herrera-Lin Foundation",
+        "commitment_pct": 0.023224,
+        "commitment_usd": 5949876.93
+      },
+      {
+        "lp_id": "LP-006",
+        "lp_name": "Pruitt Inc Family Office",
+        "commitment_pct": 0.040443,
+        "commitment_usd": 10361542.61
+      },
+      {
+        "lp_id": "LP-007",
+        "lp_name": "Franklin Ltd Insurance Investment Trust",
+        "commitment_pct": 0.045966,
+        "commitment_usd": 11776393.81
+      },
+      {
+        "lp_id": "LP-008",
+        "lp_name": "Nunez and Sons University Endowment",
+        "commitment_pct": 0.046441,
+        "commitment_usd": 11898189.89
+      },
+      {
+        "lp_id": "LP-009",
+        "lp_name": "Navarro-Higgins University Endowment",
+        "commitment_pct": 0.03549,
+        "commitment_usd": 9092473.02
+      },
+      {
+        "lp_id": "LP-010",
+        "lp_name": "Gonzalez LLC Endowment",
+        "commitment_pct": 0.054878,
+        "commitment_usd": 14059757.54
+      },
+      {
+        "lp_id": "LP-011",
+        "lp_name": "Lee-Byrd Family Office",
+        "commitment_pct": 0.05821,
+        "commitment_usd": 14913312.28
+      },
+      {
+        "lp_id": "LP-012",
+        "lp_name": "David-Martinez Retirement System",
+        "commitment_pct": 0.022851,
+        "commitment_usd": 5854374.57
+      },
+      {
+        "lp_id": "LP-013",
+        "lp_name": "Ross and Sons Foundation",
+        "commitment_pct": 0.049488,
+        "commitment_usd": 12678887.72
+      },
+      {
+        "lp_id": "LP-014",
+        "lp_name": "Farmer LLC Insurance Investment Trust",
+        "commitment_pct": 0.049667,
+        "commitment_usd": 12724647.94
+      },
+      {
+        "lp_id": "LP-015",
+        "lp_name": "Davis-Young Pension Fund",
+        "commitment_pct": 0.022734,
+        "commitment_usd": 5824533.59
+      },
+      {
+        "lp_id": "LP-016",
+        "lp_name": "Jacobson-Austin Foundation",
+        "commitment_pct": 0.057396,
+        "commitment_usd": 14704757.77
+      },
+      {
+        "lp_id": "LP-017",
+        "lp_name": "Murray-Jones University Endowment",
+        "commitment_pct": 0.021494,
+        "commitment_usd": 5506787.29
+      },
+      {
+        "lp_id": "LP-018",
+        "lp_name": "Wyatt and Sons Retirement System",
+        "commitment_pct": 0.058367,
+        "commitment_usd": 14953669.17
+      },
+      {
+        "lp_id": "LP-019",
+        "lp_name": "Thomas Miller and Nunez University Endowment",
+        "commitment_pct": 0.060586,
+        "commitment_usd": 15522134.5
+      },
+      {
+        "lp_id": "LP-020",
+        "lp_name": "Lucas Long and Skinner Foundation",
+        "commitment_pct": 0.047949,
+        "commitment_usd": 12284440.38
+      },
+      {
+        "lp_id": "LP-021",
+        "lp_name": "Garcia Ltd Insurance Investment Trust",
+        "commitment_pct": 0.041928,
+        "commitment_usd": 10742082.16
+      },
+      {
+        "lp_id": "LP-022",
+        "lp_name": "Turner Johnson and Wilson Family Office",
+        "commitment_pct": 0.038359,
+        "commitment_usd": 9827596.27
+      },
+      {
+        "lp_id": "LP-023",
+        "lp_name": "Nielsen Beltran and Maldonado University Endowment",
+        "commitment_pct": 0.049692,
+        "commitment_usd": 12731156.44
+      },
+      {
+        "lp_id": "LP-024",
+        "lp_name": "Moses Barrett and Hunter Foundation",
+        "commitment_pct": 0.03677,
+        "commitment_usd": 9420540.13
+      },
+      {
+        "lp_id": "LP-025",
+        "lp_name": "Johnson Mendoza and Steele Family Office",
+        "commitment_pct": 0.019508,
+        "commitment_usd": 4998003.29
+      }
+    ],
+    "assigned_approver": {
+      "name": "Sam Ellery",
+      "email": "sellery@synthetic-ops.example",
+      "role": "Head of Finance Ops"
+    }
+  },
+  {
+    "fund_id": "FUND-09",
+    "fund_name": "Bramblewood Ventures Partners IV",
+    "fund_type": "Buyout",
+    "vintage_year": 2022,
+    "target_size_usd": 350000000,
+    "committed_capital_usd": 338909484.74,
+    "gp_entity_name": "Bramblewood Ventures Management, LLC",
+    "domain": "bramblewoodventures.com",
+    "contact_email": "investor.relations@bramblewoodventures.com",
+    "baseline_bank_name": "Silverline Bank & Trust",
+    "baseline_routing_number": "090203448",
+    "baseline_account_number": "111524033421",
+    "fund_admin_name": "Northbridge Fund Admin Partners",
+    "synthetic": true,
+    "lp_count": 22,
+    "lps": [
+      {
+        "lp_id": "LP-001",
+        "lp_name": "Mcdonald Ramirez and Wall University Endowment",
+        "commitment_pct": 0.061523,
+        "commitment_usd": 20850832.73
+      },
+      {
+        "lp_id": "LP-002",
+        "lp_name": "Torres Group Pension Fund",
+        "commitment_pct": 0.040423,
+        "commitment_usd": 13699829.64
+      },
+      {
+        "lp_id": "LP-003",
+        "lp_name": "Davis Schroeder and Randall Pension Fund",
+        "commitment_pct": 0.06214,
+        "commitment_usd": 21059946.24
+      },
+      {
+        "lp_id": "LP-004",
+        "lp_name": "Baker Sanders and Gomez Retirement System",
+        "commitment_pct": 0.038536,
+        "commitment_usd": 13060220.59
+      },
+      {
+        "lp_id": "LP-005",
+        "lp_name": "Page Inc University Endowment",
+        "commitment_pct": 0.049308,
+        "commitment_usd": 16711109.71
+      },
+      {
+        "lp_id": "LP-006",
+        "lp_name": "Myers Gonzales and Hoover Endowment",
+        "commitment_pct": 0.037427,
+        "commitment_usd": 12684520.31
+      },
+      {
+        "lp_id": "LP-007",
+        "lp_name": "Miller-Cochran Endowment",
+        "commitment_pct": 0.0572,
+        "commitment_usd": 19385481.21
+      },
+      {
+        "lp_id": "LP-008",
+        "lp_name": "Rodriguez LLC Endowment",
+        "commitment_pct": 0.037324,
+        "commitment_usd": 12649618.24
+      },
+      {
+        "lp_id": "LP-009",
+        "lp_name": "Nelson and Sons Pension Fund",
+        "commitment_pct": 0.02422,
+        "commitment_usd": 8208545.61
+      },
+      {
+        "lp_id": "LP-010",
+        "lp_name": "Hayden LLC University Endowment",
+        "commitment_pct": 0.024621,
+        "commitment_usd": 8344400.45
+      },
+      {
+        "lp_id": "LP-011",
+        "lp_name": "Jones LLC Insurance Investment Trust",
+        "commitment_pct": 0.05929,
+        "commitment_usd": 20094000.27
+      },
+      {
+        "lp_id": "LP-012",
+        "lp_name": "Anderson-Mclaughlin Foundation",
+        "commitment_pct": 0.048744,
+        "commitment_usd": 16519852.05
+      },
+      {
+        "lp_id": "LP-013",
+        "lp_name": "Blair Hess and Cook Foundation",
+        "commitment_pct": 0.063984,
+        "commitment_usd": 21684881.98
+      },
+      {
+        "lp_id": "LP-014",
+        "lp_name": "Miller Davis and Gallegos Retirement System",
+        "commitment_pct": 0.046392,
+        "commitment_usd": 15722580.75
+      },
+      {
+        "lp_id": "LP-015",
+        "lp_name": "Martinez Bell and Ellis Retirement System",
+        "commitment_pct": 0.026456,
+        "commitment_usd": 8966351.13
+      },
+      {
+        "lp_id": "LP-016",
+        "lp_name": "Shelton-James University Endowment",
+        "commitment_pct": 0.052205,
+        "commitment_usd": 17692925.92
+      },
+      {
+        "lp_id": "LP-017",
+        "lp_name": "Torres-Gutierrez Family Office",
+        "commitment_pct": 0.03816,
+        "commitment_usd": 12932669.17
+      },
+      {
+        "lp_id": "LP-018",
+        "lp_name": "Henson Hayes and Hensley Retirement System",
+        "commitment_pct": 0.032537,
+        "commitment_usd": 11027142.26
+      },
+      {
+        "lp_id": "LP-019",
+        "lp_name": "Williams and Sons Insurance Investment Trust",
+        "commitment_pct": 0.048578,
+        "commitment_usd": 16463486.79
+      },
+      {
+        "lp_id": "LP-020",
+        "lp_name": "Thompson Ltd Foundation",
+        "commitment_pct": 0.04761,
+        "commitment_usd": 16135608.76
+      },
+      {
+        "lp_id": "LP-021",
+        "lp_name": "Woods-Gordon Endowment",
+        "commitment_pct": 0.061857,
+        "commitment_usd": 20963990.96
+      },
+      {
+        "lp_id": "LP-022",
+        "lp_name": "Carpenter-Reynolds Retirement System",
+        "commitment_pct": 0.041461,
+        "commitment_usd": 14051489.98
+      }
+    ],
+    "assigned_approver": {
+      "name": "Dana Whitfield",
+      "email": "dwhitfield@synthetic-ops.example",
+      "role": "Controller"
+    }
+  },
+  {
+    "fund_id": "FUND-10",
+    "fund_name": "Highmark Equity Partners III",
+    "fund_type": "Buyout",
+    "vintage_year": 2022,
+    "target_size_usd": 600000000,
+    "committed_capital_usd": 580007405.83,
+    "gp_entity_name": "Highmark Equity Management, LLC",
+    "domain": "highmarkequity.com",
+    "contact_email": "investor.relations@highmarkequity.com",
+    "baseline_bank_name": "Northgate Commercial Bank",
+    "baseline_routing_number": "052995192",
+    "baseline_account_number": "7932365454",
+    "fund_admin_name": "Standish Fund Services",
+    "synthetic": true,
+    "lp_count": 23,
+    "lps": [
+      {
+        "lp_id": "LP-001",
+        "lp_name": "Rivers Sanchez and Cox Insurance Investment Trust",
+        "commitment_pct": 0.057542,
+        "commitment_usd": 33374909.95
+      },
+      {
+        "lp_id": "LP-002",
+        "lp_name": "Gross-Rich Insurance Investment Trust",
+        "commitment_pct": 0.045658,
+        "commitment_usd": 26481871.07
+      },
+      {
+        "lp_id": "LP-003",
+        "lp_name": "Armstrong-Doyle Retirement System",
+        "commitment_pct": 0.05173,
+        "commitment_usd": 30003743.64
+      },
+      {
+        "lp_id": "LP-004",
+        "lp_name": "Maxwell LLC Foundation",
+        "commitment_pct": 0.040463,
+        "commitment_usd": 23468875.48
+      },
+      {
+        "lp_id": "LP-005",
+        "lp_name": "Brooks-Patel Retirement System",
+        "commitment_pct": 0.035147,
+        "commitment_usd": 20385473.77
+      },
+      {
+        "lp_id": "LP-006",
+        "lp_name": "Sandoval-Solis University Endowment",
+        "commitment_pct": 0.052132,
+        "commitment_usd": 30237234.64
+      },
+      {
+        "lp_id": "LP-007",
+        "lp_name": "Castillo Cox and Lopez University Endowment",
+        "commitment_pct": 0.021895,
+        "commitment_usd": 12699007.67
+      },
+      {
+        "lp_id": "LP-008",
+        "lp_name": "Hoffman Knight and Mitchell Family Office",
+        "commitment_pct": 0.046596,
+        "commitment_usd": 27026311.19
+      },
+      {
+        "lp_id": "LP-009",
+        "lp_name": "Owen Simpson and Martin Endowment",
+        "commitment_pct": 0.051253,
+        "commitment_usd": 29727010.74
+      },
+      {
+        "lp_id": "LP-010",
+        "lp_name": "Howard-Mcbride Retirement System",
+        "commitment_pct": 0.051167,
+        "commitment_usd": 29677187.62
+      },
+      {
+        "lp_id": "LP-011",
+        "lp_name": "Middleton-Sherman Family Office",
+        "commitment_pct": 0.03162,
+        "commitment_usd": 18340055.78
+      },
+      {
+        "lp_id": "LP-012",
+        "lp_name": "Harrison Phillips and Taylor Pension Fund",
+        "commitment_pct": 0.051714,
+        "commitment_usd": 29994523.23
+      },
+      {
+        "lp_id": "LP-013",
+        "lp_name": "Jennings-Riley University Endowment",
+        "commitment_pct": 0.038858,
+        "commitment_usd": 22538085.78
+      },
+      {
+        "lp_id": "LP-014",
+        "lp_name": "Blake Cook and Nolan Endowment",
+        "commitment_pct": 0.024764,
+        "commitment_usd": 14363492.18
+      },
+      {
+        "lp_id": "LP-015",
+        "lp_name": "Wilson-Hernandez Insurance Investment Trust",
+        "commitment_pct": 0.031806,
+        "commitment_usd": 18447679.38
+      },
+      {
+        "lp_id": "LP-016",
+        "lp_name": "Hanna Buckley and Miranda University Endowment",
+        "commitment_pct": 0.041138,
+        "commitment_usd": 23860280.66
+      },
+      {
+        "lp_id": "LP-017",
+        "lp_name": "Williams LLC Retirement System",
+        "commitment_pct": 0.037164,
+        "commitment_usd": 21555543.73
+      },
+      {
+        "lp_id": "LP-018",
+        "lp_name": "Williams Williams and Harris Endowment",
+        "commitment_pct": 0.056908,
+        "commitment_usd": 33007317.06
+      },
+      {
+        "lp_id": "LP-019",
+        "lp_name": "Gray-Woods Endowment",
+        "commitment_pct": 0.049852,
+        "commitment_usd": 28914562.93
+      },
+      {
+        "lp_id": "LP-020",
+        "lp_name": "West-Humphrey University Endowment",
+        "commitment_pct": 0.040958,
+        "commitment_usd": 23755684.38
+      },
+      {
+        "lp_id": "LP-021",
+        "lp_name": "Fleming Ltd University Endowment",
+        "commitment_pct": 0.055636,
+        "commitment_usd": 32269546.61
+      },
+      {
+        "lp_id": "LP-022",
+        "lp_name": "Williams Group University Endowment",
+        "commitment_pct": 0.039281,
+        "commitment_usd": 22783465.85
+      },
+      {
+        "lp_id": "LP-023",
+        "lp_name": "Anthony Russell and Brown Endowment",
+        "commitment_pct": 0.046716,
+        "commitment_usd": 27095542.47
+      }
+    ],
+    "assigned_approver": {
+      "name": "Marcus True",
+      "email": "mtrue@synthetic-ops.example",
+      "role": "Controller"
+    }
+  }
+]

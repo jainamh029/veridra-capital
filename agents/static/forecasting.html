@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Capital Call — Scenario / Forecasting (synthetic demo)</title>
+<style>
+  :root {
+    --bg: #f4f5f7; --card: #fff; --ink: #1c2330; --muted: #5b6472;
+    --line: #dfe3e8; --pass: #1f8f46; --review: #b9770e; --block: #c0392b;
+    --btn: #2d5be3; --btn-ink: #fff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--ink); }
+  header { background: var(--card); border-bottom: 1px solid var(--line); padding: 16px 24px; }
+  header h1 { margin: 0; font-size: 18px; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+  header .hrow { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .hrow .right { display: flex; align-items: center; gap: 10px; flex: none; flex-wrap: wrap; }
+  .navlink { font-size: 13px; text-decoration: none; color: var(--btn);
+             border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; white-space: nowrap; }
+  .navlink:hover { background: #eef2fb; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .bar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+  .bar button { background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+                padding: 7px 14px; cursor: pointer; font-size: 14px; }
+  .bar label { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+  .count { color: var(--muted); font-size: 14px; }
+  .msg { margin-left: auto; font-size: 13px; padding: 6px 10px; border-radius: 6px; }
+  .msg.err { background: #fbeae8; color: var(--block); }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+          padding: 18px 20px; margin-bottom: 18px; }
+  .card h2 { margin: 0 0 2px; font-size: 16px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+
+  table.fields { border-collapse: collapse; width: 100%; font-size: 13px; }
+  table.fields td { padding: 3px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.fields td.k { color: var(--muted); white-space: nowrap; }
+  table.fields td.n { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* THREE tiers, deliberately NOT the same weight. Never summed together. */
+  .tier { border-radius: 8px; padding: 13px 16px; margin-top: 12px; }
+  .tier h3 { margin: 0 0 3px; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .tier .num { font-variant-numeric: tabular-nums; }
+
+  .tier-confirmed { background: #eef7f0; border: 1px solid #cfe6d6; }
+  .tier-confirmed h3 { color: var(--pass); }
+  .tier-confirmed .num { font-size: 24px; font-weight: 700; color: var(--pass); }
+
+  .tier-pending { background: #fbf6ec; border: 1px solid #ecdcb3; border-left: 4px dashed var(--review); }
+  .tier-pending h3 { color: var(--review); }
+  .tier-pending .num { font-size: 18px; font-weight: 700; }
+
+  /* Projected tier: visibly the LEAST solid — dashed all round, muted, lighter,
+     smaller number, explicit "estimate" caption. */
+  .tier-projected { background: #f5f6f8; border: 1px dashed #b3bcc9; color: var(--muted); }
+  .tier-projected h3 { color: #8a94a3; }
+  .tier-projected .num { font-size: 16px; font-weight: 600; color: #66707d; }
+  .tier-projected .tentative { font-style: italic; font-size: 12px; margin: 4px 0 8px; color: #8a94a3; }
+  .tier-projected .method { font-size: 11.5px; color: #98a2b0; margin-top: 8px; }
+  .tier-projected table.fields td { border-bottom-color: #e4e8ee; }
+  /* no-projection state: no number at all, just the plain statement */
+  .tier-none { background: #f7f8fa; border-style: dashed; }
+  .tier-none .tentative { font-style: normal; color: var(--muted); font-size: 13px; }
+
+  .empty { color: var(--muted); text-align: center; padding: 48px 0; }
+  .note { color: var(--muted); font-size: 12px; margin-top: 24px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <div>
+      <h1>Scenario / Forecasting</h1>
+      <p>Per fund, three separate tiers — <strong>never added together</strong>:
+         confirmed cash, known pending obligations, and a <strong>projected</strong> next call.
+         The projection is a <strong>simple extrapolation from the fund's own past cadence</strong>
+         (average gap between calls, mean of recent amounts) — not a forecasting model. All data
+         is synthetic.</p>
+    </div>
+    <div class="right">
+      <a class="navlink" href="/ui/approvals">Payment Approvals →</a>
+      <a class="navlink" href="/ui/cash-planning">Cash Planning →</a>
+      <a class="navlink" href="/ui/k1-routing">K-1 Routing →</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="bar">
+    <button id="refresh">↻ Refresh</button>
+    <label><input type="checkbox" id="narr" /> include narrative (calls the model)</label>
+    <span class="count" id="count">loading…</span>
+    <span class="msg" id="msg" hidden></span>
+  </div>
+  <div id="list"></div>
+  <p class="note">Local demo surface — synthetic data, no login. Tier 3 comes from
+     <code>GET /forecasting</code> (<code>forecasting/core.py</code>, deterministic, no model);
+     tiers 1–2 are read from cash planning. A projection is only shown alongside the history it
+     was derived from.</p>
+</div>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const money = v => typeof v === "number"
+  ? "$" + v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  : esc(v ?? "—");
+
+function flash(t) {
+  const m = $("#msg"); m.textContent = t; m.hidden = false;
+  clearTimeout(flash._t); flash._t = setTimeout(() => { m.hidden = true; }, 5000);
+}
+
+function historyRows(points) {
+  const tail = points.slice(-10);
+  return tail.map(hp =>
+    `<tr><td class="k">${esc(hp.date)}</td><td class="n">${money(hp.amount)}</td>
+         <td class="k">${esc(hp.source.replace(/_/g, " "))}</td></tr>`).join("");
+}
+
+function projectedTier(fund) {
+  if (!fund.sufficient_history) {
+    // no projection at all — say so plainly. No number, no window, nothing that
+    // could be misread as "$0 projected".
+    return `<div class="tier tier-projected tier-none">
+      <h3>Projected next call — none available</h3>
+      <div class="tentative"><strong>No projection for this fund.</strong>
+        ${esc(fund.reason || "not enough confirmed call history")}. Nothing is estimated —
+        this is not a $0 projection, it is the absence of one.</div>
+    </div>`;
+  }
+  const nx = fund.next_expected_call;
+  const basis = fund.basis;
+  const overdue = nx.overdue_relative_to_as_of
+    ? ` <strong>(point estimate is already before ${esc(fund.as_of)} — a call may be due)</strong>` : "";
+  const lowConf = basis.low_confidence
+    ? `<div class="tentative"><strong>⚠ Low confidence (${esc(nx.confidence)})</strong> —
+       only ${esc(basis.interval_sample_size)} historical gap${basis.interval_sample_size === 1 ? "" : "s"}
+       to average over; the window is deliberately widened.</div>` : "";
+  return `<div class="tier tier-projected">
+    <h3>Projected next call — estimate, not an obligation</h3>
+    <div class="tentative">Estimate based on this fund's past pattern only. Simple historical
+      extrapolation, <strong>not a forecasting model</strong>, and not a real obligation.${overdue}</div>
+    ${lowConf}
+    <div class="num">~ ${money(nx.estimated_amount)} &nbsp;·&nbsp; window
+      ${esc(nx.window_start)} → ${esc(nx.window_end)} &nbsp;(point ${esc(nx.point_estimate_date)})</div>
+    <table class="fields" style="margin-top:8px">
+      <tr><td class="k">avg gap between past calls</td><td class="n">${esc(basis.avg_interval_days)} days
+        (±${esc(basis.interval_spread_days)})</td></tr>
+      <tr><td class="k">amount basis</td><td class="n">${esc(basis.estimated_amount_basis)},
+        trend ${esc(basis.amount_trend)}</td></tr>
+      <tr><td class="k">history span</td><td class="n">${esc(basis.first_call_date)} →
+        ${esc(basis.last_call_date)} (${esc(fund.history_call_count)} calls)</td></tr>
+    </table>
+    <div style="margin-top:8px;font-size:12px;color:#8a94a3">Derived from (last 10 of
+      ${esc(fund.history_call_count)}):</div>
+    <table class="fields">${historyRows(fund.history_used)}</table>
+    <div class="method">method: ${esc(fund.method)}</div>
+  </div>`;
+}
+
+function card(fund) {
+  const ctx = fund.context;
+  const nar = fund.narrative;
+  const narHtml = (nar && nar.narrative)
+    ? `<div class="tier" style="background:#f2f4f8;border:1px solid var(--line);margin-top:12px;font-size:13px">${esc(nar.narrative)}</div>`
+    : (nar && !nar.generated)
+      ? `<div class="tier" style="background:#f2f4f8;border:1px solid var(--line);margin-top:12px;font-size:12px;color:var(--muted)">narrative unavailable — ${esc(nar.reason || "")}</div>` : "";
+
+  return `
+  <div class="card" data-fund="${esc(fund.fund_id)}">
+    <h2>${esc(fund.fund_name)}</h2>
+    <div class="sub">${esc(fund.fund_id)} · vantage ${esc(fund.as_of)} ·
+      ledger as of ${esc(ctx.as_of_ledger)} · <code>${esc(fund.type)}</code></div>
+
+    <div class="tier tier-confirmed">
+      <h3>1 · Confirmed cash balance</h3>
+      <div class="num">${money(ctx.confirmed_cash_balance)}</div>
+    </div>
+
+    <div class="tier tier-pending">
+      <h3>2 · Known pending obligations — not yet realized</h3>
+      <div class="num">${money(ctx.near_term_obligations_total)}</div>
+      <div style="font-size:12px;color:var(--muted)">${esc(ctx.near_term_obligations_count)}
+        pending capital call(s) in the near-term window — known, not in the balance above.</div>
+    </div>
+
+    ${projectedTier(fund)}
+    ${narHtml}
+  </div>`;
+}
+
+async function load() {
+  $("#count").textContent = "loading…";
+  const url = "/forecasting" + ($("#narr").checked ? "?narrative=true" : "");
+  let funds;
+  try {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    funds = await r.json();
+  } catch (e) {
+    $("#count").textContent = "";
+    $("#list").innerHTML = `<div class="empty">Could not reach the API (${esc(e.message)}).<br>
+      Start it with <code>uvicorn agents.app:app --reload</code> and refresh.</div>`;
+    return;
+  }
+  const projectable = funds.filter(fund => fund.sufficient_history).length;
+  $("#count").textContent = `${funds.length} funds · ${projectable} with enough history to project`;
+  $("#list").innerHTML = funds.length ? funds.map(card).join("") : `<div class="empty">No funds.</div>`;
+}
+
+$("#refresh").addEventListener("click", load);
+$("#narr").addEventListener("change", load);
+load();
+</script>
+</body>
+</html>
