@@ -19,19 +19,19 @@ A capital call notice tells an investor where to wire a large sum. Fraudsters im
 One notice goes in as raw text. One decision comes out. A human always makes the final call.
 
 ```mermaid
-flowchart LR
-    N["Raw notice text"] --> E["Extraction<br/>fine-tuned local model pulls entity,<br/>bank, routing, amount, due date"]
-    E --> R["Rules layer<br/>ABA checksum + exact compare against<br/>the fund's locked baseline<br/>(every check runs, none short-circuit)"]
-    N --> M["Fraud model<br/>independent second opinion"]
-    R --> D{"Decision<br/>PASS / REVIEW / BLOCK<br/>severity = max across all findings"}
+flowchart TB
+    N["Raw notice text"] --> E["1. Extraction<br/>fine-tuned local model"]
+    N --> M["2b. Fraud model<br/>independent second opinion"]
+    E --> R["2a. Rules layer<br/>ABA checksum and exact compare<br/>against the locked baseline<br/>every check runs"]
+    R --> D{"3. Decision<br/>PASS / REVIEW / BLOCK"}
     M --> D
-    D --> A["Approver alert<br/>names every failed check,<br/>observed vs. on-file values"]
-    A --> H["Human decision<br/>Approve / Reject / Needs info<br/>(the platform never sends a wire)"]
+    D --> A["4. Approver alert<br/>names every failed check"]
+    A --> H["5. Human decision<br/>Approve / Reject / Needs info<br/>no code path sends a wire"]
     H --> L[("Append-only audit log")]
-    H -- "APPROVED only" --> C["Cash Planning<br/>confirmed cash balance"]
+    H -- "APPROVED only" --> C["Cash Planning"]
     G[("Fund ledger history")] --> C
-    G --> F["Forecasting<br/>next-call estimate, labelled tentative"]
-    K["Schedule K-1"] --> K1["K-1 Routing<br/>deterministic matching<br/>or NEEDS_REVIEW"]
+    G --> F["Forecasting<br/>tentative estimate"]
+    K["Schedule K-1"] --> K1["K-1 Routing<br/>match or NEEDS_REVIEW"]
 ```
 
 ### Screenshots
