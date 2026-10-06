@@ -1,10 +1,12 @@
 # Veridra Capital
 
-**An operating system for fund finance.** Veridra Capital verifies every capital call notice for wire fraud, routes each decision through human approval, plans cash, forecasts the next call, and matches every Schedule K-1 to the right fund and LP, all in one console.
+**A personal project exploring capital-call wire-fraud controls, with a human approving every payment.** It verifies each capital call notice, routes every decision through approval, plans cash, forecasts the next call, and matches Schedule K-1s to the right fund and LP, all in one console.
 
-> **Synthetic data only.** Every fund, LP, bank, notice, and balance in this repo is generated. No real financial or personal data appears anywhere.
+> **Synthetic data only.** Every fund, LP, bank, notice, and balance in this repo is generated. No real financial or personal data appears anywhere. All firm names are fictional, and any resemblance to a real company is coincidental.
 
-**Demo video:** [brag-output/Veridra Capital.mp4](brag-output/Veridra%20Capital.mp4) (about 70 seconds, narrated walkthrough of every module)
+<!-- TODO: add the demo video link here once it is uploaded (unlisted YouTube or Loom), e.g.
+**Demo video:** [Watch the 70-second walkthrough](https://...) -->
+
 
 ---
 
@@ -14,18 +16,51 @@ A capital call notice tells an investor where to wire a large sum. Fraudsters im
 
 ## What it does
 
-One notice goes in as raw text. One decision comes out.
+One notice goes in as raw text. One decision comes out. A human always makes the final call.
 
+```mermaid
+flowchart LR
+    N["Raw notice text"] --> E["Extraction<br/>fine-tuned local model pulls entity,<br/>bank, routing, amount, due date"]
+    E --> R["Rules layer<br/>ABA checksum + exact compare against<br/>the fund's locked baseline<br/>(every check runs, none short-circuit)"]
+    N --> M["Fraud model<br/>independent second opinion"]
+    R --> D{"Decision<br/>PASS / REVIEW / BLOCK<br/>severity = max across all findings"}
+    M --> D
+    D --> A["Approver alert<br/>names every failed check,<br/>observed vs. on-file values"]
+    A --> H["Human decision<br/>Approve / Reject / Needs info<br/>(the platform never sends a wire)"]
+    H --> L[("Append-only audit log")]
+    H -- "APPROVED only" --> C["Cash Planning<br/>confirmed cash balance"]
+    G[("Fund ledger history")] --> C
+    G --> F["Forecasting<br/>next-call estimate, labelled tentative"]
+    K["Schedule K-1"] --> K1["K-1 Routing<br/>deterministic matching<br/>or NEEDS_REVIEW"]
 ```
-raw notice
-  → extraction      fine-tuned local model pulls entity, bank, routing, amount, due date
-  → rules layer     ABA checksum + exact compare of bank / routing / GP name / sender domain
-                    against the fund's locked baseline. Every check runs, none short-circuit.
-  → model layer     fine-tuned wire-fraud model gives an independent second opinion
-  → decision        PASS / REVIEW / BLOCK, severity = the maximum across all findings
-  → approver alert  names every failed check, with observed vs. on-file values
-  → human decision  Approve / Reject / Needs info. The platform never sends a wire.
-```
+
+### Screenshots
+
+All screenshots show the live console running against synthetic data.
+
+**Fraud Verification: a look-alike sender domain is blocked, with the failed check named.**
+
+![Fraud Verification, BLOCK decision](docs/screenshots/verification-block.png)
+
+**Fraud Verification: a clean notice passes every check.**
+
+![Fraud Verification, PASS decision](docs/screenshots/verification-pass.png)
+
+**Payment Approvals: every notice, cleared or flagged, waits for a human decision.**
+
+![Payment Approvals queue](docs/screenshots/approvals.png)
+
+**Cash Planning: confirmed cash is reported separately from pending obligations and reconciled per fund.**
+
+![Cash Planning](docs/screenshots/cash-planning.png)
+
+**Forecasting: a deterministic, clearly tentative estimate of each fund's next call.**
+
+![Forecasting](docs/screenshots/forecasting.png)
+
+**K-1 Routing: deterministic matching routes a Schedule K-1 to the right fund and LP, or sends it to review.**
+
+![K-1 Routing](docs/screenshots/k1-routing.png)
 
 ### The five modules
 
@@ -58,6 +93,12 @@ These show the pipeline works on synthetic notices built to resemble real ones. 
 
 ---
 
+## How it was built
+
+The idea, architecture, workflow, and pipeline design are mine: what the system checks, in what order, where a model may help and where code must decide, and why a human always approves. The code was written with Claude Code, an AI coding assistant, working from that design. I tested it, tried to break it, and fixed what I found; the bugs and decisions are recorded in [BUILD_LOG.md](BUILD_LOG.md).
+
+---
+
 ## Repository layout
 
 ```
@@ -72,7 +113,7 @@ training/        Fine-tuning data prep, prompts, LoRA configs, Modelfiles, eval 
 demo_batch/      The 33-notice leak-free evaluation batch
 tests/           Regression and contract tests
 frontend/        React + Three.js site and live console
-brag-output/     Hyperframes project and render for the demo video
+docs/            Screenshots used in this README
 ```
 
 ## Tech stack
@@ -80,7 +121,7 @@ brag-output/     Hyperframes project and render for the demo video
 - **Backend:** Python, FastAPI, SQLite, RapidFuzz
 - **Models:** Qwen2.5-1.5B-Instruct, LoRA fine-tuned with MLX (`mlx-lm`), served by Ollama. A general `qwen2.5:3b-instruct` handles narratives and K-1 extraction.
 - **Frontend:** React 19, TypeScript, Vite, Tailwind CSS v4, Framer Motion, React Three Fiber, Recharts
-- **Video:** Hyperframes (HTML to MP4) with Kokoro TTS narration
+- **Demo video:** made with Hyperframes (HTML to MP4) and Kokoro TTS narration; hosted separately, not in this repo
 
 ---
 
@@ -143,4 +184,4 @@ Training was done on an 8 GB MacBook Air (M3). [BUILD_LOG.md](BUILD_LOG.md) docu
 
 ## License
 
-No license has been chosen yet. Until one is added, all rights are reserved by default.
+Evaluation-only. You are welcome to view, clone, and run this project to evaluate it (for example, as part of a hiring or portfolio review). Copying, modifying, redistributing, or commercial use requires written permission. See [LICENSE](LICENSE).

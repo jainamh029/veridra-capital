@@ -33,3 +33,6 @@ k1_routing/*.log
 # Frontend / video build output
 frontend/dist/
 brag-output/composition/.snap/
+
+# Demo video project and render: host the video separately (YouTube/Loom), keep source out of the repo
+brag-output/
